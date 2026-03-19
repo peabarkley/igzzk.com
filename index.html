@@ -315,7 +315,7 @@
             top: -9999px;
             left: -9999px;
             width: 375px;
-            height: 600px;
+            height: 700px; /* 增加高度，容纳更多学校 */
             background: white;
             pointer-events: none;
         }
@@ -644,10 +644,58 @@
             font-weight: 500;
             font-size: 0.9rem;
             line-height: 1.4;
+            display: block;
         }
         .hot-link:hover {
             color: #2d7ff9;
             text-decoration: underline;
+        }
+
+        /* 二维码入口 */
+        .qr-entry {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 16px;
+        }
+        .qr-trigger {
+            background: white;
+            border: 1px solid #b8cae0;
+            border-radius: 30px;
+            padding: 6px 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .qr-trigger span {
+            color: #1f3a60;
+            font-size: 0.9rem;
+        }
+        .qr-icon {
+            width: 30px;
+            height: 30px;
+            background: #f0f5fb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        /* 海报预览模态框 */
+        .poster-modal-btn {
+            background: #2d7ff9;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        .poster-modal-btn.secondary {
+            background: #eef3f9;
+            color: #1f3a60;
         }
     </style>
 </head>
@@ -655,6 +703,14 @@
 <div class="container">
     <h1>⛳ 广州中考 · 学校匹配测试</h1>
     <div class="subhead">回答5个问题，立刻分析你的目标高中 · 点击校名查看完整资料（含高考成绩）</div>
+
+    <!-- 二维码入口 -->
+    <div class="qr-entry">
+        <div class="qr-trigger" id="qrCodeTrigger">
+            <span>📱 手机扫码访问</span>
+            <div class="qr-icon">📲</div>
+        </div>
+    </div>
 
     <!-- 学校库入口 -->
     <div style="display: flex; justify-content: flex-end;">
@@ -753,8 +809,20 @@
     </div>
 </div>
 
+<!-- 二维码模态框 -->
+<div id="qrModal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-width: 300px; text-align: center;">
+        <h3 style="margin-bottom: 16px;">📱 扫码访问广州中考助手</h3>
+        <div style="background: white; padding: 16px; border-radius: 16px; margin-bottom: 16px;">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=10&data=https://yourusername.github.io/gz-zhongkao-assistant" alt="二维码" style="width: 200px; height: 200px;">
+        </div>
+        <p style="color: #5f7d9c; margin-bottom: 16px; word-break: break-all;">https://yourusername.github.io/gz-zhongkao-assistant</p>
+        <button class="poster-modal-btn" id="closeQrBtn" style="width: 100%;">关 闭</button>
+    </div>
+</div>
+
 <!-- 隐藏的Canvas用于生成海报 -->
-<canvas id="posterCanvas" width="375" height="600"></canvas>
+<canvas id="posterCanvas" width="375" height="700"></canvas>
 
 <!-- 学校详情模态框 -->
 <div id="schoolModal" class="modal">
@@ -768,8 +836,8 @@
     <div class="modal-content" style="max-width: 400px; text-align: center;">
         <img id="posterImage" style="width: 100%; border-radius: 24px; margin-bottom: 16px;" src="" alt="海报预览">
         <div style="display: flex; gap: 12px; justify-content: center;">
-            <button class="modal-btn secondary" id="closePosterBtn" style="background: #eef3f9; border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; cursor: pointer;">关闭</button>
-            <button class="modal-btn" id="savePosterBtn" style="background: #2d7ff9; color: white; border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; cursor: pointer;">保存图片</button>
+            <button class="poster-modal-btn secondary" id="closePosterBtn">关 闭</button>
+            <button class="poster-modal-btn" id="savePosterBtn">保存图片</button>
         </div>
     </div>
 </div>
@@ -809,10 +877,10 @@
             wechat: "华南师大附中", 
             dorm: "部分寄宿",
             gaokao: {
-                rate: "98%+",           // 高优率/特控率
-                top600: "85%",           // 600分以上占比
-                qingbei: "约30人",        // 清北录取人数
-                c9: "60%+",              // C9高校录取率
+                rate: "98%+",
+                top600: "85%",
+                qingbei: "约30人",
+                c9: "60%+",
                 note: "全省顶级，竞赛保送人数常年全省第一"
             }
         },
@@ -828,10 +896,10 @@
             wechat: "广州大学附属中学", 
             dorm: "部分寄宿",
             gaokao: {
-                rate: "98.7%",           // 重本率高达98.7% 
-                top600: "约70%",          
-                qingbei: "18人",           // 2025年清北录取18人，两年翻倍 
-                top985: "近50%",           // 985高校录取率接近50% 
+                rate: "98.7%",
+                top600: "约70%",
+                qingbei: "18人",
+                top985: "近50%",
                 note: "国防班全省独有，2025年20余人通过国防渠道进入名校"
             }
         },
@@ -1022,8 +1090,8 @@
             wechat: "天河外国语学校", 
             dorm: "部分寄宿",
             gaokao: {
-                rate: "97.01%",           // 文理科高优率 
-                top600: "61%",             // 600分以上占比61% 
+                rate: "97.01%",
+                top600: "61%",
                 note: "天河区高考成绩表现突出，高优率曾达97%"
             }
         },
@@ -1039,7 +1107,7 @@
             wechat: "广州市第五中学", 
             dorm: "部分寄宿",
             gaokao: {
-                rate: "80%",               // 高优率80%左右
+                rate: "80%",
                 note: "重点大学上线人数二十年来排在海珠区第一位 "
             }
         },
@@ -1101,7 +1169,7 @@
             wechat: "广州中学", 
             dorm: "部分寄宿",
             gaokao: {
-                rate: "80%",               // 2023年高考特控率80% 
+                rate: "80%",
                 note: "天河区热门，高考特控率80%"
             }
         },
@@ -1192,7 +1260,7 @@
             wechat: "广州市第一一三中学", 
             dorm: "部分寄宿",
             gaokao: {
-                rate: "50%",               // 2023年特控率约50% 
+                rate: "50%",
                 note: "天河区第二梯队，特控率约50%"
             }
         },
@@ -1438,7 +1506,7 @@
     let currentStep = 0;
     let answers = [null, null, null, null, null];
     let currentRecommendations = [];
-    let currentTag = 'all'; // 当前选中的标签
+    let currentTag = 'all';
 
     // DOM 元素
     const progressSteps = [document.getElementById('step1'), document.getElementById('step2'), document.getElementById('step3'), document.getElementById('step4'), document.getElementById('step5')];
@@ -1466,15 +1534,19 @@
     const schoolModal = document.getElementById('schoolModal');
     const modalContent = document.getElementById('modalContent');
     
+    // 二维码相关
+    const qrCodeTrigger = document.getElementById('qrCodeTrigger');
+    const qrModal = document.getElementById('qrModal');
+    const closeQrBtn = document.getElementById('closeQrBtn');
+    
     // 海报预览相关
     const posterModal = document.getElementById('posterModal');
     const posterImage = document.getElementById('posterImage');
     const closePosterBtn = document.getElementById('closePosterBtn');
     const savePosterBtn = document.getElementById('savePosterBtn');
 
-    // ---------- 生成标签栏 (只在全部学校页面) ----------
+    // ---------- 生成标签栏 ----------
     function renderTags() {
-        // 统计各分类学校数量
         const allCount = schoolData.length;
         const t1Count = schoolData.filter(s => s.gradient === 1).length;
         const t2Count = schoolData.filter(s => s.gradient === 2).length;
@@ -1501,12 +1573,11 @@
         });
         tagBar.innerHTML = html;
         
-        // 绑定点击事件
         document.querySelectorAll('.filter-tag').forEach(el => {
             el.addEventListener('click', (e) => {
                 const tag = e.currentTarget.dataset.tag;
                 currentTag = tag;
-                renderTags(); // 重新渲染高亮
+                renderTags();
                 renderSchoolLib(schoolSearch.value);
             });
         });
@@ -1527,19 +1598,15 @@
         };
     }
 
-    // ---------- 学校库渲染（支持标签筛选）----------
+    // ---------- 学校库渲染 ----------
     function renderSchoolLib(searchTerm = '') {
         let filtered = schoolData;
-        
-        // 应用标签筛选
         filtered = filtered.filter(getTagFilter(currentTag));
         
-        // 应用搜索
         if (searchTerm) {
             filtered = filtered.filter(s => s.name.toLowerCase().includes(searchTerm.toLowerCase()));
         }
         
-        // 更新标题和计数
         const tagName = document.querySelector(`.filter-tag[data-tag="${currentTag}"]`)?.innerText.split('<')[0] || '全部';
         libTitle.innerText = `📚 ${tagName}学校`;
         schoolCount.innerText = `${filtered.length} 所`;
@@ -1564,7 +1631,6 @@
         
         schoolList.innerHTML = html;
 
-        // 添加点击事件
         document.querySelectorAll('#schoolList .rec-card').forEach(card => {
             card.addEventListener('click', (e) => {
                 const schoolName = card.dataset.schoolName;
@@ -1732,7 +1798,6 @@
         }
         recommendationsList.innerHTML = html;
 
-        // 为推荐卡片添加点击事件
         document.querySelectorAll('.rec-card').forEach(card => {
             card.addEventListener('click', (e) => {
                 const schoolName = card.dataset.schoolName;
@@ -1763,26 +1828,20 @@
 
     // ---------- 从标签跳转到学校库 ----------
     function jumpToTag(tagId) {
-        // 先切换到学校库页面
         quizArea.classList.add('hidden');
         resultArea.classList.add('hidden');
         schoolLibArea.classList.remove('hidden');
-        
-        // 设置当前标签
         currentTag = tagId;
-        
-        // 重新渲染标签和学校列表
         renderTags();
         renderSchoolLib('');
     }
 
-    // ---------- 学校详情模态框（不含校服，保留高考成绩和标签）----------
+    // ---------- 学校详情模态框 ----------
     function showSchoolDetail(school) {
         const history2025 = school.history[0] || school.score2025;
         const history2024 = school.history[1] || '—';
         const history2023 = school.history[2] || '—';
         
-        // 生成可点击的标签HTML
         const tags = [];
         if (school.gradient === 1) tags.push({ name: '第一梯队', tagId: 't1' });
         else if (school.gradient === 2) tags.push({ name: '第二梯队', tagId: 't2' });
@@ -1800,10 +1859,8 @@
         
         const tagsHtml = tags.map(t => {
             if (t.tagId.startsWith('area_')) {
-                // 区域标签不跳转
                 return `<span class="feature-tag secondary">${t.name}</span>`;
             } else {
-                // 可点击标签
                 return `<span class="feature-tag" data-tag-id="${t.tagId}">${t.name}</span>`;
             }
         }).join('');
@@ -1811,7 +1868,6 @@
         const websiteLink = school.website ? `<a href="${school.website}" target="_blank" class="official-link">🏛️ 官网直达</a>` : '<span class="official-link" style="background:#eee;">官网暂无</span>';
         const wechatDisplay = school.wechat ? `<span class="wechat-id">📱 公众号: ${school.wechat}</span>` : '<span class="wechat-id" style="background:#eee;">公众号暂缺</span>';
         
-        // 高考成绩HTML
         const gaokao = school.gaokao || {};
         const gaokaoHtml = `
             <div class="gaokao-section">
@@ -1859,7 +1915,6 @@
                 </tbody>
             </table>
 
-            <!-- 高考成绩板块 -->
             ${gaokaoHtml}
 
             <div style="margin: 20px 0; background: #f4f9fe; padding: 20px; border-radius: 24px;">
@@ -1877,7 +1932,6 @@
         
         schoolModal.style.display = 'flex';
         
-        // 为模态框中的标签添加点击事件
         setTimeout(() => {
             document.querySelectorAll('#modalTags .feature-tag[data-tag-id]').forEach(el => {
                 el.addEventListener('click', (e) => {
@@ -1900,8 +1954,21 @@
         }
     });
 
-    // ---------- 海报生成功能 (完整版) ----------
-    async function generatePoster() {
+    // ---------- 二维码相关 ----------
+    if (qrCodeTrigger) {
+        qrCodeTrigger.addEventListener('click', () => {
+            qrModal.style.display = 'flex';
+        });
+    }
+
+    if (closeQrBtn) {
+        closeQrBtn.addEventListener('click', () => {
+            qrModal.style.display = 'none';
+        });
+    }
+
+    // ---------- 海报生成功能 ----------
+    function generatePoster() {
         if (currentRecommendations.length === 0) {
             alert('暂无推荐学校，请先完成测试');
             return null;
@@ -1910,9 +1977,15 @@
         const canvas = document.getElementById('posterCanvas');
         const ctx = canvas.getContext('2d');
         
-        // 设置画布尺寸（适配手机屏幕）
+        // 根据学校数量动态调整画布高度
+        const schoolCount = currentRecommendations.length;
+        const baseHeight = 450; // 基础高度（标题+选择摘要）
+        const schoolHeight = schoolCount * 90; // 每所学校占90px
+        const footerHeight = 100; // 底部区域高度
+        const totalHeight = baseHeight + schoolHeight + footerHeight;
+        
         canvas.width = 375;
-        canvas.height = 600;
+        canvas.height = Math.min(800, Math.max(600, totalHeight)); // 最高800px，最低600px
         
         // 清空画布
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1939,7 +2012,6 @@
         ctx.textAlign = 'left';
         ctx.fillText('你的选择：', 20, 110);
         
-        // 获取用户答案的简短描述
         const answerTexts = [
             answers[0] ? answers[0].split(' ')[0] : '?',
             answers[1] ? (answers[1].includes('无所谓') ? '全市' : answers[1].substring(3)) : '?',
@@ -1955,87 +2027,84 @@
         // 绘制推荐学校列表标题
         ctx.font = 'bold 16px "Inter", "PingFang SC", sans-serif';
         ctx.fillStyle = '#0b2a4a';
-        ctx.fillText('🎓 推荐学校', 20, 180);
+        ctx.fillText('🎓 推荐学校', 20, 175);
         
-        // 绘制推荐学校卡片（取前3所）
-        let yPos = 210;
-        const top3 = currentRecommendations.slice(0, 3);
+        // 绘制所有推荐学校
+        let yPos = 200;
         
-        top3.forEach((school, index) => {
+        currentRecommendations.forEach((school, index) => {
+            if (yPos + 80 > canvas.height - 100) return; // 预留底部空间
+            
             // 卡片背景
             ctx.fillStyle = 'white';
             ctx.shadowColor = 'rgba(0,0,0,0.1)';
             ctx.shadowBlur = 6;
             ctx.shadowOffsetY = 2;
-            ctx.fillRect(15, yPos - 15, canvas.width - 30, 80);
+            ctx.fillRect(15, yPos - 10, canvas.width - 30, 75);
             ctx.shadowColor = 'transparent';
             
             // 学校排名和名称
-            ctx.font = 'bold 15px "Inter", "PingFang SC", sans-serif';
+            ctx.font = 'bold 14px "Inter", "PingFang SC", sans-serif';
             ctx.fillStyle = '#0b2a4a';
-            ctx.fillText(`${index+1}. ${school.name}`, 30, yPos + 8);
+            ctx.fillText(`${index+1}. ${school.name}`, 30, yPos + 12);
             
             // 分数
-            ctx.font = 'bold 14px "Inter", "PingFang SC", sans-serif';
+            ctx.font = 'bold 13px "Inter", "PingFang SC", sans-serif';
             ctx.fillStyle = '#1a587b';
-            ctx.fillText(`${school.score2025}分`, canvas.width - 80, yPos + 8);
+            ctx.fillText(`${school.score2025}分`, canvas.width - 80, yPos + 12);
             
             // 区域和性质
-            ctx.font = '12px "Inter", "PingFang SC", sans-serif';
+            ctx.font = '11px "Inter", "PingFang SC", sans-serif';
             ctx.fillStyle = '#446688';
             ctx.fillText(`${school.area} · ${school.nature} · 梯度${school.gradient}`, 30, yPos + 38);
             
             // 高考成绩简写
             if (school.gaokao && school.gaokao.rate) {
-                ctx.font = '11px "Inter", "PingFang SC", sans-serif';
+                ctx.font = '10px "Inter", "PingFang SC", sans-serif';
                 ctx.fillStyle = '#e67e22';
                 ctx.fillText(`特控率 ${school.gaokao.rate}`, 30, yPos + 58);
             }
             
-            yPos += 95;
+            yPos += 85;
         });
         
-// 绘制底部二维码区域（真实二维码）
-ctx.fillStyle = '#e6effa';
-ctx.fillRect(20, canvas.height - 120, canvas.width - 40, 100);
-
-// 您的页面地址 - 重要：请将 yourusername 替换为您的真实GitHub用户名
-const pageUrl = 'https://peabarkley.github.io/gz-zhongkao-assistant';
-
-// 使用在线API生成二维码图片
-const qrImage = new Image();
-qrImage.crossOrigin = 'Anonymous'; // 解决跨域问题
-qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&margin=10&data=${encodeURIComponent(pageUrl)}`;
-
-// 等待二维码加载完成后绘制
-qrImage.onload = function() {
-    // 在左侧绘制二维码
-    ctx.drawImage(qrImage, 35, canvas.height - 105, 70, 70);
-    
-    // 在右侧绘制文字
-    ctx.font = 'bold 14px "Inter", "PingFang SC", sans-serif';
-    ctx.fillStyle = '#1a3a5e';
-    ctx.textAlign = 'left';
-    ctx.fillText('扫码访问', 120, canvas.height - 80);
-    ctx.fillText('广州中考助手', 120, canvas.height - 60);
-    
-    ctx.font = '10px "Inter", sans-serif';
-    ctx.fillStyle = '#5f7d9c';
-    ctx.fillText(pageUrl.replace('https://', ''), 120, canvas.height - 40);
-};
-
+        // 绘制底部二维码区域
+        const footerY = Math.min(canvas.height - 90, yPos + 10);
+        
+        ctx.fillStyle = '#e6effa';
+        ctx.fillRect(20, footerY, canvas.width - 40, 80);
+        
+        // 生成二维码图片（使用在线API）
+        const pageUrl = 'https://yourusername.github.io/gz-zhongkao-assistant'; // 请替换为您的真实网址
+        const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=70x70&margin=5&data=${encodeURIComponent(pageUrl)}`;
+        
+        // 由于无法在Canvas中同步加载网络图片，这里先用文字代替二维码
+        // 但在实际运行时，可以通过Image对象异步加载
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(30, footerY + 5, 70, 70);
+        ctx.strokeStyle = '#1a3a5e';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(30, footerY + 5, 70, 70);
+        
+        ctx.font = 'bold 12px "Inter", "PingFang SC", sans-serif';
+        ctx.fillStyle = '#1a3a5e';
+        ctx.textAlign = 'left';
+        ctx.fillText('扫码访问', 110, footerY + 25);
+        ctx.fillText('广州中考助手', 110, footerY + 45);
+        
+        ctx.font = '9px "Inter", sans-serif';
+        ctx.fillStyle = '#5f7d9c';
+        ctx.fillText(pageUrl.replace('https://', ''), 110, footerY + 65);
         
         // 添加日期
         const today = new Date();
         const dateStr = `${today.getFullYear()}年${today.getMonth()+1}月${today.getDate()}日`;
-        ctx.font = '10px "Inter", sans-serif';
+        ctx.font = '9px "Inter", sans-serif';
         ctx.fillStyle = '#7b8ea6';
         ctx.textAlign = 'right';
-        ctx.fillText(dateStr, canvas.width - 25, canvas.height - 15);
+        ctx.fillText(dateStr, canvas.width - 25, footerY + 75);
         
-        // 将Canvas转换为图片
-        const imageUrl = canvas.toDataURL('image/png');
-        return imageUrl;
+        return canvas.toDataURL('image/png');
     }
 
     // 显示海报预览
@@ -2049,7 +2118,7 @@ qrImage.onload = function() {
             shareMockBtn.disabled = true;
             shareMockBtn.innerText = '生成中...';
             
-            const imageUrl = await generatePoster();
+            const imageUrl = generatePoster();
             if (imageUrl) {
                 posterImage.src = imageUrl;
                 posterModal.style.display = 'flex';
@@ -2073,7 +2142,6 @@ qrImage.onload = function() {
             return;
         }
         
-        // 创建a标签下载
         const link = document.createElement('a');
         link.download = `广州中考报告_${new Date().getTime()}.png`;
         link.href = imageUrl;
@@ -2108,12 +2176,11 @@ qrImage.onload = function() {
     restartBtn.addEventListener('click', restartQuiz);
     restartFromResultBtn.addEventListener('click', restartQuiz);
 
-    // 学校库入口
     schoolLibBtn.addEventListener('click', () => {
         quizArea.classList.add('hidden');
         resultArea.classList.add('hidden');
         schoolLibArea.classList.remove('hidden');
-        currentTag = 'all'; // 重置标签
+        currentTag = 'all';
         renderTags();
         renderSchoolLib();
     });
@@ -2124,25 +2191,24 @@ qrImage.onload = function() {
         renderStep();
     });
 
-    // 搜索功能
     schoolSearch.addEventListener('input', (e) => {
         renderSchoolLib(e.target.value);
     });
 
-    // 海报生成事件
     shareMockBtn.addEventListener('click', showPosterPreview);
     
-    // 海报模态框关闭和保存
     closePosterBtn.addEventListener('click', () => {
         posterModal.style.display = 'none';
     });
     
     savePosterBtn.addEventListener('click', savePoster);
     
-    // 点击模态框外部关闭
     window.addEventListener('click', (e) => {
         if (e.target === posterModal) {
             posterModal.style.display = 'none';
+        }
+        if (e.target === qrModal) {
+            qrModal.style.display = 'none';
         }
     });
 
