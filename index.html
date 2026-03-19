@@ -716,36 +716,36 @@
         </div>
     </div>
 
-    <!-- 热点资讯区域（SEO优化） -->
+    <!-- 热点资讯区域（SEO优化 + 真实跳转链接） -->
     <div class="hot-topics">
         <h3 class="hot-title">📰 2026广州中考热点·政策·数据</h3>
         <div class="hot-grid">
             <div class="hot-item">
                 <span class="hot-tag hot">🔥 热点</span>
-                <a href="#" class="hot-link">2026广州中考人数预计15.3万，新增普高学位1.5万+</a>
+                <a href="https://m.mp.oeeee.com/a/BAAFRD0000202603101536097.html" target="_blank" rel="noopener noreferrer" class="hot-link">2026广州中考人数预计15.3万，新增普高学位1.5万+</a>
             </div>
             <div class="hot-item">
                 <span class="hot-tag hot">🔥 热点</span>
-                <a href="#" class="hot-link">广州中考“铁腕十条”出台：严禁签约、包捞、人籍分离</a>
+                <a href="https://news.qq.com/rain/a/20260101A01PCZ00" target="_blank" rel="noopener noreferrer" class="hot-link">广州中考“铁腕十条”出台：严禁签约、包捞、人籍分离</a>
             </div>
             <div class="hot-item">
                 <span class="hot-tag data">📊 数据</span>
-                <a href="#" class="hot-link">2025区属高中外区计划利用率仅56%，近一半名额空着</a>
+                <a href="https://m.mp.oeeee.com/a/BAAFRD0000202603101536097.html" target="_blank" rel="noopener noreferrer" class="hot-link">2025区属高中外区计划利用率仅56%，近一半名额空着</a>
             </div>
             <div class="hot-item">
                 <span class="hot-tag data">📊 数据</span>
-                <a href="#" class="hot-link">广州一模时隔17年恢复全市统考，精准定位全市排名</a>
+                <a href="https://edu.ycwb.com/2025-12/31/content_53884700.htm" target="_blank" rel="noopener noreferrer" class="hot-link">广州一模时隔17年恢复全市统考，精准定位全市排名</a>
             </div>
             <div class="hot-item">
                 <span class="hot-tag hot">🔥 政策</span>
-                <a href="#" class="hot-link">随迁子女报考公办：只需父母一方居住证，取消社保要求</a>
+                <a href="https://gzzk.gz.gov.cn/zwgk/zcfg/zcjd/content/post_10705174.html" target="_blank" rel="noopener noreferrer" class="hot-link">随迁子女报考公办：只需父母一方居住证，取消社保要求</a>
             </div>
             <div class="hot-item">
                 <span class="hot-tag hot">🔥 趋势</span>
-                <a href="#" class="hot-link">广州高中梯度线公布：第一梯度707分，第二梯度667分</a>
+                <a href="http://bj.offcn.cc/zkfs/id/43301.html" target="_blank" rel="noopener noreferrer" class="hot-link">广州高中梯度线公布：第一梯度707分，第二梯度667分</a>
             </div>
         </div>
-        <p style="font-size:0.75rem; color:#8a9db5; margin-top:12px; text-align:right;">数据来源：广州市招考办、南方都市报、新快报、信息时报</p>
+        <p style="font-size:0.75rem; color:#8a9db5; margin-top:12px; text-align:right;">数据来源：广州市招考办、南方都市报、羊城晚报、新快报、信息时报</p>
     </div>
 
     <div class="footnote">
@@ -760,6 +760,17 @@
 <div id="schoolModal" class="modal">
     <div class="modal-content" id="modalContent">
         <!-- 动态填充 -->
+    </div>
+</div>
+
+<!-- 海报预览模态框 -->
+<div id="posterModal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-width: 400px; text-align: center;">
+        <img id="posterImage" style="width: 100%; border-radius: 24px; margin-bottom: 16px;" src="" alt="海报预览">
+        <div style="display: flex; gap: 12px; justify-content: center;">
+            <button class="modal-btn secondary" id="closePosterBtn" style="background: #eef3f9; border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; cursor: pointer;">关闭</button>
+            <button class="modal-btn" id="savePosterBtn" style="background: #2d7ff9; color: white; border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; cursor: pointer;">保存图片</button>
+        </div>
     </div>
 </div>
 
@@ -1454,6 +1465,12 @@
     // 模态框相关
     const schoolModal = document.getElementById('schoolModal');
     const modalContent = document.getElementById('modalContent');
+    
+    // 海报预览相关
+    const posterModal = document.getElementById('posterModal');
+    const posterImage = document.getElementById('posterImage');
+    const closePosterBtn = document.getElementById('closePosterBtn');
+    const savePosterBtn = document.getElementById('savePosterBtn');
 
     // ---------- 生成标签栏 (只在全部学校页面) ----------
     function renderTags() {
@@ -1883,6 +1900,169 @@
         }
     });
 
+    // ---------- 海报生成功能 (完整版) ----------
+    async function generatePoster() {
+        if (currentRecommendations.length === 0) {
+            alert('暂无推荐学校，请先完成测试');
+            return null;
+        }
+
+        const canvas = document.getElementById('posterCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // 设置画布尺寸（适配手机屏幕）
+        canvas.width = 375;
+        canvas.height = 600;
+        
+        // 清空画布
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // 绘制背景渐变
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, '#f0f5fb');
+        gradient.addColorStop(1, '#e6f0ff');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // 绘制顶部标题区域
+        ctx.fillStyle = '#1a3a5e';
+        ctx.fillRect(0, 0, canvas.width, 80);
+        
+        ctx.font = 'bold 20px "Inter", "PingFang SC", sans-serif';
+        ctx.fillStyle = 'white';
+        ctx.textAlign = 'center';
+        ctx.fillText('🎯 广州中考 · 学校匹配报告', canvas.width/2, 48);
+        
+        // 绘制用户选择摘要
+        ctx.font = 'bold 14px "Inter", "PingFang SC", sans-serif';
+        ctx.fillStyle = '#1e293b';
+        ctx.textAlign = 'left';
+        ctx.fillText('你的选择：', 20, 110);
+        
+        // 获取用户答案的简短描述
+        const answerTexts = [
+            answers[0] ? answers[0].split(' ')[0] : '?',
+            answers[1] ? (answers[1].includes('无所谓') ? '全市' : answers[1].substring(3)) : '?',
+            answers[2] ? (answers[2].includes('公办') ? '公办' : answers[2].includes('民办') ? '民办' : '均可') : '?',
+            answers[3] ? (answers[3].includes('必须住宿') ? '需住宿' : answers[3].includes('不需要') ? '不住宿' : '可住宿') : '?',
+            answers[4] ? (answers[4].includes('传统名校') ? '省市属' : answers[4].includes('区属龙头') ? '区属龙头' : '其他') : '?'
+        ];
+        
+        ctx.font = '12px "Inter", "PingFang SC", sans-serif';
+        ctx.fillStyle = '#2b4b75';
+        ctx.fillText(`分数: ${answerTexts[0]}  |  区域: ${answerTexts[1]}  |  ${answerTexts[2]}  |  ${answerTexts[3]}  |  偏好: ${answerTexts[4]}`, 20, 135);
+        
+        // 绘制推荐学校列表标题
+        ctx.font = 'bold 16px "Inter", "PingFang SC", sans-serif';
+        ctx.fillStyle = '#0b2a4a';
+        ctx.fillText('🎓 推荐学校', 20, 180);
+        
+        // 绘制推荐学校卡片（取前3所）
+        let yPos = 210;
+        const top3 = currentRecommendations.slice(0, 3);
+        
+        top3.forEach((school, index) => {
+            // 卡片背景
+            ctx.fillStyle = 'white';
+            ctx.shadowColor = 'rgba(0,0,0,0.1)';
+            ctx.shadowBlur = 6;
+            ctx.shadowOffsetY = 2;
+            ctx.fillRect(15, yPos - 15, canvas.width - 30, 80);
+            ctx.shadowColor = 'transparent';
+            
+            // 学校排名和名称
+            ctx.font = 'bold 15px "Inter", "PingFang SC", sans-serif';
+            ctx.fillStyle = '#0b2a4a';
+            ctx.fillText(`${index+1}. ${school.name}`, 30, yPos + 8);
+            
+            // 分数
+            ctx.font = 'bold 14px "Inter", "PingFang SC", sans-serif';
+            ctx.fillStyle = '#1a587b';
+            ctx.fillText(`${school.score2025}分`, canvas.width - 80, yPos + 8);
+            
+            // 区域和性质
+            ctx.font = '12px "Inter", "PingFang SC", sans-serif';
+            ctx.fillStyle = '#446688';
+            ctx.fillText(`${school.area} · ${school.nature} · 梯度${school.gradient}`, 30, yPos + 38);
+            
+            // 高考成绩简写
+            if (school.gaokao && school.gaokao.rate) {
+                ctx.font = '11px "Inter", "PingFang SC", sans-serif';
+                ctx.fillStyle = '#e67e22';
+                ctx.fillText(`特控率 ${school.gaokao.rate}`, 30, yPos + 58);
+            }
+            
+            yPos += 95;
+        });
+        
+        // 绘制底部二维码区域（示意）
+        ctx.fillStyle = '#e6effa';
+        ctx.fillRect(20, canvas.height - 100, canvas.width - 40, 70);
+        
+        ctx.font = 'bold 14px "Inter", "PingFang SC", sans-serif';
+        ctx.fillStyle = '#1a3a5e';
+        ctx.textAlign = 'center';
+        ctx.fillText('📱 长按扫码 · 测测你的目标高中', canvas.width/2, canvas.height - 70);
+        
+        ctx.font = '12px "Inter", "PingFang SC", sans-serif';
+        ctx.fillStyle = '#5f7d9c';
+        ctx.fillText('广州中考助手 · 2026', canvas.width/2, canvas.height - 45);
+        
+        // 添加日期
+        const today = new Date();
+        const dateStr = `${today.getFullYear()}年${today.getMonth()+1}月${today.getDate()}日`;
+        ctx.font = '10px "Inter", sans-serif';
+        ctx.fillStyle = '#7b8ea6';
+        ctx.textAlign = 'right';
+        ctx.fillText(dateStr, canvas.width - 25, canvas.height - 15);
+        
+        // 将Canvas转换为图片
+        const imageUrl = canvas.toDataURL('image/png');
+        return imageUrl;
+    }
+
+    // 显示海报预览
+    async function showPosterPreview() {
+        if (currentRecommendations.length === 0) {
+            alert('暂无推荐学校，请先完成测试');
+            return;
+        }
+
+        try {
+            shareMockBtn.disabled = true;
+            shareMockBtn.innerText = '生成中...';
+            
+            const imageUrl = await generatePoster();
+            if (imageUrl) {
+                posterImage.src = imageUrl;
+                posterModal.style.display = 'flex';
+            }
+            
+            shareMockBtn.disabled = false;
+            shareMockBtn.innerText = '📲 生成报告海报';
+        } catch (error) {
+            console.error('生成海报失败:', error);
+            alert('生成海报失败，请重试');
+            shareMockBtn.disabled = false;
+            shareMockBtn.innerText = '📲 生成报告海报';
+        }
+    }
+
+    // 保存图片到本地
+    function savePoster() {
+        const imageUrl = posterImage.src;
+        if (!imageUrl || imageUrl === '') {
+            alert('没有可保存的图片');
+            return;
+        }
+        
+        // 创建a标签下载
+        const link = document.createElement('a');
+        link.download = `广州中考报告_${new Date().getTime()}.png`;
+        link.href = imageUrl;
+        link.click();
+    }
+
     // ---------- 事件绑定 ----------
     nextBtn.addEventListener('click', () => {
         if (currentStep < questions.length - 1) {
@@ -1932,9 +2112,21 @@
         renderSchoolLib(e.target.value);
     });
 
-    // 海报生成（简化版）
-    shareMockBtn.addEventListener('click', () => {
-        alert('📸 生成分享海报功能已准备\n\n正式版将生成包含你推荐学校的精美海报');
+    // 海报生成事件
+    shareMockBtn.addEventListener('click', showPosterPreview);
+    
+    // 海报模态框关闭和保存
+    closePosterBtn.addEventListener('click', () => {
+        posterModal.style.display = 'none';
+    });
+    
+    savePosterBtn.addEventListener('click', savePoster);
+    
+    // 点击模态框外部关闭
+    window.addEventListener('click', (e) => {
+        if (e.target === posterModal) {
+            posterModal.style.display = 'none';
+        }
     });
 
     // 初始化
