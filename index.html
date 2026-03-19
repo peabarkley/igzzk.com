@@ -1997,42 +1997,33 @@
         
 // 绘制底部二维码区域（真实二维码）
 ctx.fillStyle = '#e6effa';
-ctx.fillRect(20, canvas.height - 110, canvas.width - 40, 90);
+ctx.fillRect(20, canvas.height - 120, canvas.width - 40, 100);
 
-// 生成二维码图片（使用在线API）
-const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent('https://yourusername.github.io/gz-zhongkao-assistant')}`;
+// 您的页面地址 - 重要：请将 yourusername 替换为您的真实GitHub用户名
+const pageUrl = 'https://peabarkley.github.io/gz-zhongkao-assistant';
 
-// 由于Canvas无法直接加载网络图片并同步绘制，这里先用文字提示
-// 实际使用中，可以通过加载图片后绘制，但为了简化，我们保留文字提示并添加真实链接
-ctx.font = 'bold 14px "Inter", "PingFang SC", sans-serif';
-ctx.fillStyle = '#1a3a5e';
-ctx.textAlign = 'center';
-ctx.fillText('📱 扫码访问广州中考助手', canvas.width/2, canvas.height - 70);
+// 使用在线API生成二维码图片
+const qrImage = new Image();
+qrImage.crossOrigin = 'Anonymous'; // 解决跨域问题
+qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&margin=10&data=${encodeURIComponent(pageUrl)}`;
 
-ctx.font = '12px "Inter", "PingFang SC", sans-serif';
-ctx.fillStyle = '#5f7d9c';
-ctx.fillText('https://yourusername.github.io/gz-zhongkao-assistant', canvas.width/2, canvas.height - 45);
+// 等待二维码加载完成后绘制
+qrImage.onload = function() {
+    // 在左侧绘制二维码
+    ctx.drawImage(qrImage, 35, canvas.height - 105, 70, 70);
+    
+    // 在右侧绘制文字
+    ctx.font = 'bold 14px "Inter", "PingFang SC", sans-serif';
+    ctx.fillStyle = '#1a3a5e';
+    ctx.textAlign = 'left';
+    ctx.fillText('扫码访问', 120, canvas.height - 80);
+    ctx.fillText('广州中考助手', 120, canvas.height - 60);
+    
+    ctx.font = '10px "Inter", sans-serif';
+    ctx.fillStyle = '#5f7d9c';
+    ctx.fillText(pageUrl.replace('https://', ''), 120, canvas.height - 40);
+};
 
-// 画一个二维码框示意
-ctx.fillStyle = '#ffffff';
-ctx.fillRect(canvas.width/2 - 40, canvas.height - 140, 80, 80);
-ctx.strokeStyle = '#1a3a5e';
-ctx.lineWidth = 2;
-ctx.strokeRect(canvas.width/2 - 40, canvas.height - 140, 80, 80);
-ctx.font = '10px "Inter", sans-serif';
-ctx.fillStyle = '#1a3a5e';
-ctx.fillText('扫码', canvas.width/2 - 15, canvas.height - 70);
-        ctx.fillStyle = '#e6effa';
-        ctx.fillRect(20, canvas.height - 100, canvas.width - 40, 70);
-        
-        ctx.font = 'bold 14px "Inter", "PingFang SC", sans-serif';
-        ctx.fillStyle = '#1a3a5e';
-        ctx.textAlign = 'center';
-        ctx.fillText('📱 长按扫码 · 测测你的目标高中', canvas.width/2, canvas.height - 70);
-        
-        ctx.font = '12px "Inter", "PingFang SC", sans-serif';
-        ctx.fillStyle = '#5f7d9c';
-        ctx.fillText('广州中考助手 · 2026', canvas.width/2, canvas.height - 45);
         
         // 添加日期
         const today = new Date();
