@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Tools · IGZZK</title>
+<meta name="description" content="Instagram business tools explained: Insights, Promote, Shopping, Meta Business Suite.">
+<style>
+/* 复用首页全部 CSS */
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="logo"><span class="logo-mark">IG</span><span>IGZZK<span style="color:var(--text-faint);font-weight:500;">·Knowledge</span></span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="algorithm-decoded.html">Algorithm</a></li>
+        <li><a href="how-to-post.html">How to Post</a></li>
+        <li><a href="pitfalls.html">Pitfalls</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<section class="section" style="padding:48px 0 0;">
+  <div class="container">
+    <p style="font-size:14px;color:var(--text-faint);"><a href="index.html" style="color:var(--brand);">Home</a> / Business Tools</p>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Knowledge Base</span>
+      <h1 class="section-title">Business Tools</h1>
+      <p class="section-desc">Business profiles, Insights, Promote, Shopping, and Meta Business Suite. Practical walkthroughs for every tool Instagram gives businesses.</p>
+    </div>
+    <div class="grid-posts">
+      <article class="post-card reveal">
+        <div class="post-body">
+          <span class="post-tag">Business Tools</span>
+          <h3><a href="article-business.html">How to switch to a business account (and read your insights)</a></h3>
+          <p>See who viewed your posts and where they're from. Then use that data to improve what you create next.</p>
+          <div class="post-meta"><span>9 min read</span><span class="sep"></span><span>Intermediate</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:1px solid var(--line);padding-top:28px;">
+      <span>© 2026 IGZZK.com · All rights reserved</span>
+      <p class="disclaimer">Not affiliated with Meta Platforms, Inc. or Instagram.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');if(!t||!l)return;t.addEventListener('click',function(){l.classList.toggle('open');});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open');});});})();
+(function(){var items=document.querySelectorAll('.reveal');if(!items.length)return;if(!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('is-visible');});return;}var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -60px 0px'});items.forEach(function(el,i){el.style.transitionDelay=(i%4)*70+'ms';io.observe(el);});})();
+</script>
+</body>
+</html>
