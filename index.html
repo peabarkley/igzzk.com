@@ -1,2220 +1,373 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    
-    <!-- SEO 基础标签 -->
-    <title>2026广州中考助手 · 学校分数线查询+志愿匹配测试</title>
-    <meta name="description" content="2026广州中考一站式工具：5个问题测出你的目标高中，查询160+所学校近三年录取分数线、高考成绩、宿位信息。涵盖华附、省实、广雅、执信、广大附中、广州二中、天河外国语等名校数据，基于官方招生数据，助力志愿填报。">
-    <meta name="keywords" content="2026广州中考,广州中考分数线,广州高中排名,广州中考志愿填报,广州中考政策,华附分数线,省实分数线,广雅中学,执信中学,广大附中,广州二中,天河外国语学校,广州一模统考,随迁子女报考,广州中考人数,广州新增学位,广州中考外区计划">
-    <meta name="author" content="广州中考助手">
-    
-    <!-- Open Graph 社交分享标签（微信/QQ分享优化） -->
-    <meta property="og:title" content="2026广州中考助手 · 学校匹配测试">
-    <meta property="og:description" content="5个问题测出你的目标高中，查询160+所学校分数线、高考成绩、宿位信息。基于2025官方录取数据。">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourusername.github.io/gz-zhongkao-assistant">
-    
-    <!-- 搜索引擎抓取控制 -->
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://yourusername.github.io/gz-zhongkao-assistant">
-    
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #f0f5fb;
-            color: #1e293b;
-            line-height: 1.5;
-            padding: 16px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            width: 100%;
-            background: white;
-            border-radius: 40px 40px 32px 32px;
-            box-shadow: 0 20px 40px -12px rgba(0,30,70,0.2);
-            overflow: hidden;
-            padding: 28px 24px 36px;
-        }
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            background: linear-gradient(145deg, #00337C, #0B5E9E);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 4px;
-        }
-        .subhead {
-            font-size: 1rem;
-            color: #4b6589;
-            margin-bottom: 28px;
-            border-left: 4px solid #2d7ff9;
-            padding-left: 18px;
-            background: #f0f6ff;
-            border-radius: 0 30px 30px 0;
-            line-height: 1.4;
-            padding: 12px 20px;
-            font-weight: 500;
-        }
-
-        /* 进度条 */
-        .progress {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 28px;
-            gap: 6px;
-        }
-        .step {
-            flex: 1;
-            height: 6px;
-            background: #e6edf6;
-            border-radius: 12px;
-            transition: 0.2s;
-        }
-        .step.active {
-            background: #2d7ff9;
-            box-shadow: 0 0 0 2px #e1ebff;
-        }
-        .step.completed {
-            background: #0f6e4a;
-        }
-        /* 问题卡片 */
-        .quiz-card {
-            background: #f9fcff;
-            border-radius: 36px;
-            padding: 28px 24px;
-            border: 1px solid #dde9f5;
-            box-shadow: 0 10px 20px -10px rgba(0,50,100,0.1);
-            margin-bottom: 20px;
-        }
-        .question {
-            font-size: 1.45rem;
-            font-weight: 650;
-            color: #0b2b50;
-            margin-bottom: 24px;
-            line-height: 1.3;
-        }
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .option-btn {
-            background: white;
-            border: 1.8px solid #d1ddeb;
-            border-radius: 60px;
-            padding: 16px 22px;
-            font-size: 1.05rem;
-            font-weight: 500;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.15s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-            color: #1e3a5f;
-        }
-        .option-btn:hover {
-            background: #eaf3ff;
-            border-color: #2d7ff9;
-        }
-        .option-btn.selected {
-            background: #0a3f69;
-            border-color: #0a3f69;
-            color: white;
-            font-weight: 500;
-            box-shadow: 0 8px 14px rgba(0,60,120,0.25);
-        }
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 28px 0 10px;
-        }
-        .nav-btn {
-            background: none;
-            border: 1.5px solid #b8cae0;
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-weight: 600;
-            color: #1f3a60;
-            cursor: pointer;
-            transition: 0.1s;
-            font-size: 1rem;
-        }
-        .nav-btn.primary {
-            background: #1a3a5e;
-            border-color: #1a3a5e;
-            color: white;
-        }
-        .nav-btn:disabled {
-            opacity: 0.3;
-            pointer-events: none;
-        }
-        .restart {
-            background: #eef3f9;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 40px;
-            color: #3f5e82;
-            font-weight: 500;
-            cursor: pointer;
-        }
-        /* 推荐结果区域 */
-        .result-panel {
-            margin-top: 30px;
-            background: #f2f8ff;
-            border-radius: 32px;
-            padding: 26px 22px;
-            border: 1px solid #cddff2;
-        }
-        .result-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #0b3152;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .user-summary {
-            background: white;
-            border-radius: 30px;
-            padding: 16px 20px;
-            margin: 16px 0 20px;
-            border-left: 6px solid #2d7ff9;
-            font-size: 0.98rem;
-            color: #2b4b75;
-        }
-        .rec-card {
-            background: white;
-            border-radius: 24px;
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 12px rgba(0,30,60,0.05);
-            border: 1px solid #dde9f5;
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-        .rec-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,60,120,0.15);
-            border-color: #2d7ff9;
-        }
-        .rec-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-        }
-        .rec-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #0b2a4a;
-            text-decoration: underline dotted;
-            text-underline-offset: 3px;
-        }
-        .rec-badge {
-            background: #e1ecfc;
-            padding: 5px 14px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #0c4a6e;
-        }
-        .rec-score {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: #1a587b;
-            background: #eaf1fa;
-            padding: 5px 15px;
-            border-radius: 30px;
-        }
-        .match-bar {
-            background: #e5ecf5;
-            height: 12px;
-            border-radius: 20px;
-            margin: 12px 0 8px;
-            width: 100%;
-        }
-        .match-fill {
-            height: 12px;
-            background: linear-gradient(90deg, #2d7ff9, #1659b0);
-            border-radius: 20px;
-            width: 0%;
-        }
-        .rec-reason {
-            background: #f4faff;
-            padding: 14px 18px;
-            border-radius: 20px;
-            margin: 12px 0 6px;
-            font-size: 0.95rem;
-            border-left: 4px solid #2d7ff9;
-        }
-        .rec-footer {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-            color: #446688;
-            font-size: 0.9rem;
-        }
-        .share-prompt {
-            background: #e6effa;
-            border-radius: 30px;
-            padding: 15px 20px;
-            margin: 20px 0 5px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .share-btn {
-            background: #2d7ff9;
-            color: white;
-            border: none;
-            padding: 10px 28px;
-            border-radius: 40px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: 0.1s;
-        }
-        .share-btn:hover {
-            background: #1a5bbf;
-        }
-        .footnote {
-            font-size: 0.8rem;
-            color: #7b8ea6;
-            margin-top: 30px;
-            text-align: center;
-            border-top: 1px dashed #c1d3e8;
-            padding-top: 22px;
-        }
-        .hidden {
-            display: none;
-        }
-        
-        /* 隐藏的Canvas用于生成海报 */
-        #posterCanvas {
-            position: fixed;
-            top: -9999px;
-            left: -9999px;
-            width: 375px;
-            height: 700px; /* 增加高度，容纳更多学校 */
-            background: white;
-            pointer-events: none;
-        }
-        
-        /* 学校详情模态框 */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .modal-content {
-            background: white;
-            border-radius: 36px;
-            max-width: 550px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 30px 60px rgba(0,20,50,0.3);
-            animation: modalFade 0.2s;
-            padding: 28px;
-            border: 1px solid #d9e2ef;
-        }
-        @keyframes modalFade {
-            from { opacity: 0; transform: scale(0.96); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .modal-header h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #0b2a4a;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 32px;
-            cursor: pointer;
-            color: #8a9bb5;
-            transition: 0.1s;
-            line-height: 1;
-            padding: 0 10px;
-        }
-        .close-btn:hover {
-            color: #1e3a5f;
-        }
-        .detail-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px 16px;
-            margin: 20px 0;
-            background: #f7faff;
-            padding: 20px;
-            border-radius: 24px;
-        }
-        .detail-item {
-            display: flex;
-            flex-direction: column;
-        }
-        .detail-label {
-            font-size: 0.8rem;
-            color: #62748c;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-        .detail-value {
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: #0a3f6f;
-        }
-        .small-note {
-            font-size: 0.85rem;
-            color: #446688;
-            margin-top: 4px;
-        }
-        .history-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0 12px;
-            background: #f8faff;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        .history-table th {
-            background: #dce6f2;
-            font-size: 0.9rem;
-            padding: 12px 8px;
-            text-align: center;
-            font-weight: 600;
-            color: #1f3a60;
-            border-bottom: 2px solid #b0c6de;
-        }
-        .history-table td {
-            padding: 14px 8px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-            border-bottom: 1px solid #d2dff0;
-        }
-        .feature-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 12px 0;
-        }
-        .feature-tag {
-            background: #2d7ff9;
-            color: white;
-            border-radius: 30px;
-            padding: 6px 16px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.1s;
-            border: none;
-        }
-        .feature-tag:hover {
-            background: #1a5bbf;
-            transform: translateY(-1px);
-        }
-        .feature-tag.secondary {
-            background: #e3eefc;
-            color: #1b4c7c;
-            cursor: pointer;
-        }
-        .feature-tag.secondary:hover {
-            background: #caddf2;
-        }
-        /* 高考成绩卡片 */
-        .gaokao-section {
-            background: #f0f7fa;
-            border-radius: 24px;
-            padding: 18px;
-            margin: 20px 0;
-            border-left: 6px solid #e6b800;
-        }
-        .gaokao-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 14px;
-            color: #1f4870;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .gaokao-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-        .gaokao-item {
-            background: white;
-            border-radius: 18px;
-            padding: 12px;
-            text-align: center;
-        }
-        .gaokao-label {
-            font-size: 0.8rem;
-            color: #62748c;
-            margin-bottom: 4px;
-        }
-        .gaokao-value {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #0a4b6f;
-        }
-        .gaokao-note {
-            margin-top: 12px;
-            font-size: 0.9rem;
-            color: #4d6a8c;
-            background: #e4f0f5;
-            padding: 10px;
-            border-radius: 16px;
-            font-style: italic;
-        }
-        .official-links {
-            background: #f0f6fd;
-            border-radius: 24px;
-            padding: 20px;
-            margin-top: 24px;
-            border: 1px solid #d1e0f5;
-        }
-        .official-links p {
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .official-link {
-            color: #0a4b78;
-            font-weight: 500;
-            text-decoration: none;
-            border: 1px solid #bdd3f0;
-            padding: 8px 20px;
-            border-radius: 40px;
-            background: white;
-            transition: 0.1s;
-            display: inline-block;
-        }
-        .official-link:hover {
-            background: #e4edff;
-            border-color: #2d7ff9;
-        }
-        .wechat-id {
-            background: #d9e8f5;
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-family: monospace;
-            font-weight: 600;
-            color: #0c4e6f;
-            display: inline-block;
-        }
-
-        /* 学校库入口 */
-        .school-lib-btn {
-            background: white;
-            border: 1px solid #b8cae0;
-            border-radius: 40px;
-            padding: 10px 20px;
-            color: #1f3a60;
-            font-weight: 500;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        /* 分类计数徽章 */
-        .tag-count {
-            background: rgba(255,255,255,0.2);
-            border-radius: 20px;
-            padding: 2px 8px;
-            font-size: 0.7rem;
-            margin-left: 6px;
-            color: white;
-        }
-        
-        /* 学校库内的标签栏 */
-        .tag-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 20px 0;
-            padding: 8px 0;
-        }
-        .filter-tag {
-            background: #eef3f9;
-            color: #1f3a60;
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.1s;
-            border: 1px solid transparent;
-        }
-        .filter-tag:hover {
-            background: #dae6f5;
-        }
-        .filter-tag.active {
-            background: #1a3a5e;
-            color: white;
-            border-color: #1a3a5e;
-        }
-        
-        /* SEO热点区域 */
-        .hot-topics {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #eef3f8;
-        }
-        .hot-title {
-            font-size: 1.2rem;
-            margin-bottom: 16px;
-            color: #1f3a60;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .hot-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .hot-item {
-            background: #f8faff;
-            padding: 12px;
-            border-radius: 16px;
-            border-left: 4px solid #2d7ff9;
-        }
-        .hot-tag {
-            font-size: 0.7rem;
-            padding: 2px 8px;
-            border-radius: 30px;
-            display: inline-block;
-            margin-bottom: 6px;
-        }
-        .hot-tag.hot {
-            background: #fde6d2;
-            color: #e67e22;
-        }
-        .hot-tag.data {
-            background: #d4e6f5;
-            color: #3498db;
-        }
-        .hot-link {
-            text-decoration: none;
-            color: #1e3a5f;
-            font-weight: 500;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            display: block;
-        }
-        .hot-link:hover {
-            color: #2d7ff9;
-            text-decoration: underline;
-        }
-
-        /* 二维码入口 */
-        .qr-entry {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 16px;
-        }
-        .qr-trigger {
-            background: white;
-            border: 1px solid #b8cae0;
-            border-radius: 30px;
-            padding: 6px 16px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-        .qr-trigger span {
-            color: #1f3a60;
-            font-size: 0.9rem;
-        }
-        .qr-icon {
-            width: 30px;
-            height: 30px;
-            background: #f0f5fb;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-        }
-
-        /* 海报预览模态框 */
-        .poster-modal-btn {
-            background: #2d7ff9;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            margin: 0 5px;
-        }
-        .poster-modal-btn.secondary {
-            background: #eef3f9;
-            color: #1f3a60;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IGZZK · Instagram Knowledge Base — Official docs, plain English</title>
+<meta name="description" content="We translate Instagram's official help docs into plain English. Algorithm, content, business tools, pitfalls — everything a beginner needs.">
+<style>
+/* ===== CSS Variables ===== */
+:root{
+  --bg:#ffffff;--bg-soft:#f7f8fa;--bg-dark:#12141a;
+  --text:#1f2430;--text-soft:#5b6473;--text-faint:#8b94a3;
+  --line:#e8ebf0;--brand:#4f46e5;--brand-soft:#eef0ff;--brand-dark:#3730a3;
+  --radius:14px;--radius-sm:10px;
+  --shadow-sm:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06);
+  --shadow-md:0 4px 12px rgba(16,24,40,.06),0 2px 4px rgba(16,24,40,.04);
+  --shadow-lg:0 12px 32px rgba(16,24,40,.08);
+  --maxw:1160px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.75;font-size:16px;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-style:none;}button,input{font-family:inherit;font-size:inherit;}
+.container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+.section{padding:96px 0;}.section--soft{background:var(--bg-soft);}.section--tight{padding:72px 0;}
+.eyebrow{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:16px;}
+.section-head{max-width:660px;margin-bottom:56px;}.section-head--center{margin-left:auto;margin-right:auto;text-align:center;}
+.section-title{font-size:clamp(26px,3.4vw,38px);font-weight:700;line-height:1.3;letter-spacing:-.02em;color:var(--text);margin-bottom:16px;}
+.section-desc{font-size:17px;color:var(--text-soft);line-height:1.8;}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease);}.reveal.is-visible{opacity:1;transform:none;}
+/* Header */
+.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line);}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;letter-spacing:-.02em;}
+.logo-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 55%,#db2777 100%);display:grid;place-items:center;color:#fff;font-size:14px;font-weight:800;letter-spacing:-.04em;box-shadow:0 2px 8px rgba(79,70,229,.28);}
+.nav-links{display:flex;align-items:center;gap:36px;font-size:15px;font-weight:500;color:var(--text-soft);}
+.nav-links a{transition:color .2s var(--ease);position:relative;}.nav-links a:hover{color:var(--text);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 22px;border-radius:999px;font-size:15px;font-weight:600;border:none;cursor:pointer;transition:all .22s var(--ease);white-space:nowrap;}
+.btn--primary{background:var(--brand);color:#fff;box-shadow:0 2px 10px rgba(79,70,229,.24);}
+.btn--primary:hover{background:var(--brand-dark);transform:translateY(-1px);box-shadow:0 6px 18px rgba(79,70,229,.3);}
+.btn--ghost{background:transparent;color:var(--text);border:1px solid var(--line);}
+.btn--ghost:hover{border-color:#c9cfda;background:#fff;}
+.btn--lg{padding:14px 30px;font-size:16px;}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:.25s var(--ease);}
+.nav-toggle span+span{margin-top:5px;}
+/* Hero */
+.hero{padding:110px 0 96px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:"";position:absolute;top:-260px;left:50%;transform:translateX(-50%);width:900px;height:620px;background:radial-gradient(circle at 50% 50%,rgba(79,70,229,.10),transparent 68%);pointer-events:none;}
+.hero .container{position:relative;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:var(--brand-soft);color:var(--brand-dark);border-radius:999px;font-size:13.5px;font-weight:600;margin-bottom:28px;}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--brand);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
+.hero h1{font-size:clamp(32px,5.6vw,58px);font-weight:800;line-height:1.18;letter-spacing:-.035em;margin-bottom:24px;max-width:880px;margin-left:auto;margin-right:auto;}
+.hero h1 em{font-style:normal;background:linear-gradient(120deg,#4f46e5,#7c3aed 45%,#db2777);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hero p{font-size:clamp(16px,1.9vw,19px);color:var(--text-soft);max-width:620px;margin:0 auto 40px;line-height:1.85;}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:64px;}
+.hero-stats{display:flex;justify-content:center;gap:0;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:40px;max-width:760px;margin:0 auto;}
+.stat{flex:1 1 160px;padding:0 20px;text-align:center;position:relative;}
+.stat+.stat::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:1px;background:var(--line);}
+.stat-num{font-size:30px;font-weight:800;letter-spacing:-.03em;color:var(--text);line-height:1.2;}
+.stat-num span{color:var(--brand);}
+.stat-label{font-size:13.5px;color:var(--text-faint);margin-top:6px;}
+/* Category Cards */
+.grid-cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;}
+.cat-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:32px 28px;transition:all .28s var(--ease);position:relative;overflow:hidden;display:block;}
+.cat-card::after{content:"";position:absolute;inset:0;border-radius:var(--radius);box-shadow:var(--shadow-lg);opacity:0;transition:opacity .28s var(--ease);pointer-events:none;}
+.cat-card:hover{transform:translateY(-4px);border-color:transparent;}
+.cat-card:hover::after{opacity:1;}
+.cat-card h3{font-size:18.5px;font-weight:700;letter-spacing:-.015em;margin-bottom:10px;}
+.cat-card p{font-size:14.8px;color:var(--text-soft);line-height:1.75;margin-bottom:18px;}
+.cat-link{font-size:14.5px;font-weight:600;color:var(--brand);display:inline-flex;align-items:center;gap:6px;}
+.cat-link svg{transition:transform .22s var(--ease);}
+.cat-card:hover .cat-link svg{transform:translateX(4px);}
+/* Post Cards */
+.grid-posts{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;}
+.post-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:all .28s var(--ease);}
+.post-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent;}
+.post-body{padding:26px 26px 28px;display:flex;flex-direction:column;flex:1;}
+.post-tag{display:inline-block;font-size:12.5px;font-weight:600;color:var(--brand);background:var(--brand-soft);padding:3px 11px;border-radius:999px;margin-bottom:14px;align-self:flex-start;}
+.post-card h3{font-size:18px;font-weight:700;line-height:1.5;letter-spacing:-.015em;margin-bottom:10px;}
+.post-card h3 a{transition:color .2s var(--ease);}
+.post-card h3 a:hover{color:var(--brand);}
+.post-card p{font-size:14.8px;color:var(--text-soft);line-height:1.75;margin-bottom:20px;flex:1;}
+.post-meta{font-size:13.5px;color:var(--text-faint);display:flex;align-items:center;gap:10px;}
+.post-meta .sep{width:3px;height:3px;border-radius:50%;background:#cdd3dd;}
+/* About */
+.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.about-list{display:flex;flex-direction:column;gap:26px;margin-top:32px;}
+.about-item{display:flex;gap:16px;align-items:flex-start;}
+.about-check{flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:13px;font-weight:800;margin-top:3px;}
+.about-item h4{font-size:16.5px;font-weight:700;margin-bottom:5px;letter-spacing:-.01em;}
+.about-item p{font-size:14.8px;color:var(--text-soft);line-height:1.75;}
+.translate-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-md);overflow:hidden;}
+.translate-head{display:flex;align-items:center;gap:8px;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--bg-soft);}
+.translate-head i{width:10px;height:10px;border-radius:50%;background:#e2e6ee;display:block;}
+.translate-head i:nth-child(1){background:#fca5a5;}.translate-head i:nth-child(2){background:#fcd34d;}.translate-head i:nth-child(3){background:#86efac;}
+.translate-head span{margin-left:10px;font-size:12.5px;color:var(--text-faint);font-weight:500;}
+.translate-body{padding:26px 24px;}.translate-row{margin-bottom:22px;}.translate-row:last-child{margin-bottom:0;}
+.translate-label{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px;}
+.translate-official{font-size:14.5px;color:var(--text-faint);line-height:1.7;padding-left:14px;border-left:2px solid var(--line);font-style:italic;}
+.translate-plain{display:flex;gap:10px;align-items:flex-start;margin-top:12px;padding:14px 16px;background:var(--brand-soft);border-radius:var(--radius-sm);font-size:14.8px;color:var(--brand-dark);font-weight:500;line-height:1.7;}
+.translate-plain .arrow{flex:0 0 auto;font-weight:800;}
+/* Newsletter */
+.newsletter{background:var(--bg-dark);color:#fff;border-radius:22px;padding:64px 56px;text-align:center;position:relative;overflow:hidden;}
+.newsletter::before{content:"";position:absolute;top:-140px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,rgba(124,58,237,.4),transparent 68%);pointer-events:none;}
+.newsletter::after{content:"";position:absolute;bottom:-180px;left:-120px;width:420px;height:420px;background:radial-gradient(circle,rgba(79,70,229,.32),transparent 68%);pointer-events:none;}
+.newsletter>*{position:relative;}
+.newsletter h2{font-size:clamp(24px,3.2vw,34px);font-weight:700;letter-spacing:-.025em;margin-bottom:14px;line-height:1.3;}
+.newsletter p{color:#a7aec0;font-size:16.5px;max-width:520px;margin:0 auto 32px;line-height:1.8;}
+.news-form{display:flex;gap:10px;max-width:480px;margin:0 auto;flex-wrap:wrap;}
+.news-form input{flex:1 1 240px;padding:14px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;outline:none;transition:all .22s var(--ease);}
+.news-form input::placeholder{color:#7c8496;}
+.news-form input:focus{border-color:rgba(124,58,237,.7);background:rgba(255,255,255,.1);}
+.news-note{font-size:13px;color:#6f7789;margin-top:18px;}
+/* Footer */
+.site-footer{border-top:1px solid var(--line);padding:64px 0 40px;margin-top:96px;}
+.footer-grid{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:48px;margin-bottom:52px;}
+.footer-brand p{font-size:14.6px;color:var(--text-soft);line-height:1.8;margin-top:18px;max-width:320px;}
+.footer-col h5{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:20px;}
+.footer-col ul{display:flex;flex-direction:column;gap:13px;}
+.footer-col a{font-size:14.6px;color:var(--text-soft);transition:color .2s var(--ease);}
+.footer-col a:hover{color:var(--brand);}
+.footer-bottom{border-top:1px solid var(--line);padding-top:28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:13.6px;color:var(--text-faint);}
+.footer-bottom .disclaimer{max-width:620px;line-height:1.7;font-size:12.8px;}
+/* Responsive */
+@media(max-width:960px){.about-wrap{grid-template-columns:1fr;gap:48px;}.footer-grid{grid-template-columns:1fr 1fr;gap:40px;}.footer-brand{grid-column:1/-1;}}
+@media(max-width:768px){
+  .section{padding:72px 0;}.section--tight{padding:56px 0;}.hero{padding:72px 0 64px;}
+  .nav-links{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;border-bottom:1px solid var(--line);padding:8px 24px 20px;box-shadow:var(--shadow-md);}
+  .nav-links.open{display:flex;}.nav-links a{padding:13px 0;border-bottom:1px solid var(--line);}.nav-links .btn{margin-top:14px;}
+  .nav-toggle{display:block;}
+  .hero-stats{gap:24px 0;}.stat{flex:1 1 40%;}.stat+.stat::before{display:none;}
+  .newsletter{padding:48px 26px;border-radius:18px;}.news-form{flex-direction:column;}.news-form .btn{width:100%;}
+  .footer-grid{grid-template-columns:1fr;gap:36px;}.footer-bottom{flex-direction:column;align-items:flex-start;}
+}
+@media(max-width:420px){.container{padding:0 18px;}.cat-card{padding:26px 22px;}.post-body{padding:22px 20px 24px;}}
+</style>
 </head>
 <body>
-<div class="container">
-    <h1>⛳ 广州中考 · 学校匹配测试</h1>
-    <div class="subhead">回答5个问题，立刻分析你的目标高中 · 点击校名查看完整资料（含高考成绩）</div>
 
-    <!-- 二维码入口 -->
-    <div class="qr-entry">
-        <div class="qr-trigger" id="qrCodeTrigger">
-            <span>📱 手机扫码访问</span>
-            <div class="qr-icon">📲</div>
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">IG</span>
+        <span>IGZZK<span style="color:var(--text-faint);font-weight:500;">·Knowledge</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#categories">Knowledge Base</a></li>
+        <li><a href="#articles">Latest Articles</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#subscribe">Subscribe</a></li>
+        <li><a href="#subscribe" class="btn btn--primary">Free Updates</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge"><span class="dot"></span>2026 Instagram updates now live</div>
+    <h1>Instagram official docs,<br><em>translated into plain English</em></h1>
+    <p>From setting up your account to creating content that gets seen. Algorithms, posting, business tools, account recovery — all explained like a human would explain it.</p>
+    <div class="hero-actions">
+      <a href="#articles" class="btn btn--primary btn--lg">Start with the basics</a>
+      <a href="#categories" class="btn btn--ghost btn--lg">Browse the library</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">4<span> core</span></div><div class="stat-label">knowledge sections</div></div>
+      <div class="stat"><div class="stat-num">100<span>%</span></div><div class="stat-label">based on official docs</div></div>
+      <div class="stat"><div class="stat-num">0<span> jargon</span></div><div class="stat-label">absolute beginner friendly</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section section--soft" id="categories">
+  <div class="container">
+    <div class="section-head section-head--center reveal">
+      <span class="eyebrow">Knowledge Base</span>
+      <h2 class="section-title">Four sections, everything you need</h2>
+      <p class="section-desc">Every article is sourced from Instagram's Help Center, Business Tools documentation, and official product announcements. We just make it readable.</p>
+    </div>
+    <div class="grid-cats">
+      <a href="algorithm-decoded.html" class="cat-card reveal">
+        <h3>Algorithm Decoded</h3>
+        <p>Multiple AI systems decide what people see on Feed, Reels, and Stories. We break down every signal in plain words.</p>
+        <span class="cat-link">Explore section <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="how-to-post.html" class="cat-card reveal">
+        <h3>How to Post</h3>
+        <p>Feed posts, Reels, Stories, and the new Instants feature. Step-by-step guides for every content format.</p>
+        <span class="cat-link">Explore section <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="business-tools.html" class="cat-card reveal">
+        <h3>Business Tools</h3>
+        <p>Business profiles, Insights, Promote, Shopping, Meta Business Suite. Practical walkthroughs for each tool.</p>
+        <span class="cat-link">Explore section <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="pitfalls.html" class="cat-card reveal">
+        <h3>Pitfalls to Avoid</h3>
+        <p>Account recovery, fake official messages, original content rules. The stuff Instagram won't tell you directly.</p>
+        <span class="cat-link">Explore section <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLES -->
+<section class="section" id="articles">
+  <div class="container">
+    <div class="section-head section-head--center reveal">
+      <span class="eyebrow">Latest Articles</span>
+      <h2 class="section-title">Start with these five, save years of confusion</h2>
+      <p class="section-desc">New to Instagram? Read these first. They'll give you a complete mental model of how the platform actually works.</p>
+    </div>
+    <div class="grid-posts">
+      <article class="post-card reveal">
+        <div class="post-body">
+          <span class="post-tag">Algorithm</span>
+          <h3><a href="article-algorithm-2026.html">Instagram's 2026 algorithm, explained in plain English</a></h3>
+          <p>Feed, Reels, and Stories each have their own ranking logic. Understand "sends" and "watch time" and your content gets seen.</p>
+          <div class="post-meta"><span>8 min read</span><span class="sep"></span><span>Beginner</span></div>
         </div>
-    </div>
-
-    <!-- 学校库入口 -->
-    <div style="display: flex; justify-content: flex-end;">
-        <button class="school-lib-btn" id="schoolLibBtn">📚 浏览全部学校</button>
-    </div>
-
-    <!-- 进度条 -->
-    <div class="progress" id="progressBar">
-        <div class="step" id="step1"></div>
-        <div class="step" id="step2"></div>
-        <div class="step" id="step3"></div>
-        <div class="step" id="step4"></div>
-        <div class="step" id="step5"></div>
-    </div>
-
-    <!-- 问答区 -->
-    <div id="quizArea">
-        <div class="quiz-card" id="quizCard">
-            <div class="question" id="questionText">1. 你的预估分数或年级排名？</div>
-            <div class="options" id="optionsContainer"></div>
+      </article>
+      <article class="post-card reveal">
+        <div class="post-body">
+          <span class="post-tag">Reels</span>
+          <h3><a href="article-reels.html">How the Reels algorithm actually works in 2026</a></h3>
+          <p>Watch time, DM sends, and originality signals. Why smaller accounts can compete and how to structure your first 3 seconds.</p>
+          <div class="post-meta"><span>10 min read</span><span class="sep"></span><span>Intermediate</span></div>
         </div>
-        <div class="nav-buttons">
-            <button class="nav-btn" id="prevBtn" disabled>← 上一步</button>
-            <button class="restart" id="restartBtn">重新测试</button>
-            <button class="nav-btn primary" id="nextBtn">下一步 →</button>
+      </article>
+      <article class="post-card reveal">
+        <div class="post-body">
+          <span class="post-tag">Content</span>
+          <h3><a href="article-posting.html">How to post: Feed, Reels, and Stories explained</a></h3>
+          <p>Photos, short videos, ephemeral updates — when to use each format. And how to pick tags now that the limit is 5.</p>
+          <div class="post-meta"><span>12 min read</span><span class="sep"></span><span>Walkthrough</span></div>
         </div>
+      </article>
+      <article class="post-card reveal">
+        <div class="post-body">
+          <span class="post-tag">Business Tools</span>
+          <h3><a href="article-business.html">How to switch to a business account (and read your insights)</a></h3>
+          <p>See who viewed your posts and where they're from. Then use that data to improve what you create next.</p>
+          <div class="post-meta"><span>9 min read</span><span class="sep"></span><span>Intermediate</span></div>
+        </div>
+      </article>
+      <article class="post-card reveal">
+        <div class="post-body">
+          <span class="post-tag">Pitfalls</span>
+          <h3><a href="article-recovery.html">Account restricted or disabled? The only official appeal path</a></h3>
+          <p>Instagram has no general support phone number, and the old email is gone. Here's the exact in-app route to take.</p>
+          <div class="post-meta"><span>7 min read</span><span class="sep"></span><span>Urgent</span></div>
+        </div>
+      </article>
+      <article class="post-card reveal">
+        <div class="post-body">
+          <span class="post-tag">New Features</span>
+          <h3><a href="article-features.html">2026 update roundup: Instants, First Draft, original content</a></h3>
+          <p>How the instant sharing feature works, how much time AI auto-editing saves, and the new rules for photos and carousels.</p>
+          <div class="post-meta"><span>8 min read</span><span class="sep"></span><span>Updated</span></div>
+        </div>
+      </article>
     </div>
+  </div>
+</section>
 
-    <!-- 推荐结果区 (初始隐藏) -->
-    <div id="resultArea" class="hidden">
-        <div class="result-panel">
-            <div class="result-title">🎯 你的专属学校推荐</div>
-            <div class="user-summary" id="userSummary">加载中...</div>
-            <div id="recommendationsList"></div>
-            <div class="share-prompt">
-                <span style="font-weight:500;">📸 分享给同学家长，一起测一测</span>
-                <button class="share-btn" id="shareMockBtn">📲 生成报告海报</button>
+<!-- ABOUT -->
+<section class="section section--soft" id="about">
+  <div class="container">
+    <div class="about-wrap">
+      <div class="reveal">
+        <span class="eyebrow">About IGZZK</span>
+        <h2 class="section-title">We don't republish tutorials.<br>We translate official docs.</h2>
+        <p class="section-desc">Instagram's Help Center is thorough — but it reads like legal text. We break every rule down, translate it, and add context so you know exactly what to do next.</p>
+        <div class="about-list">
+          <div class="about-item"><span class="about-check">✓</span><div><h4>Official sources only</h4><p>Help Center, Business Tools docs, API references, product announcements. No rumours, no made-up "insider tricks".</p></div></div>
+          <div class="about-item"><span class="about-check">✓</span><div><h4>Plain language first</h4><p>No "impressions" or "reach" jargon to scare you off. If we can say "how many people saw it", we will.</p></div></div>
+          <div class="about-item"><span class="about-check">✓</span><div><h4>Keep up with official changes</h4><p>Instagram tweaks its rules multiple times a year. We follow every update so you're never using outdated advice.</p></div></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="translate-card">
+          <div class="translate-head"><i></i><i></i><i></i><span>IGZZK Translator · Sample</span></div>
+          <div class="translate-body">
+            <div class="translate-row">
+              <div class="translate-label">Official wording</div>
+              <p class="translate-official">"Feed ranking is determined by a set of AI systems that predict which content is most relevant to each user."</p>
+              <div class="translate-plain"><span class="arrow">→</span><span>What you see on your home feed depends on who you watch and interact with. Want more of someone? Like and comment on their posts.</span></div>
             </div>
-            <div style="text-align:center; margin-top:16px;">
-                <button class="restart" id="restartFromResultBtn">重新测试</button>
+            <div class="translate-row">
+              <div class="translate-label">Official wording</div>
+              <p class="translate-official">"Sends are the most meaningful signal for Reels distribution."</p>
+              <div class="translate-plain"><span class="arrow">→</span><span>When someone DMs your video to a friend, it counts way more than a like. So add "@tag a friend who needs this" in your Reels.</span></div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- 全部学校列表 (初始隐藏) -->
-    <div id="schoolLibArea" class="hidden">
-        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap;">
-            <h2 style="font-size: 1.5rem;" id="libTitle">📚 全部学校</h2>
-            <button class="restart" id="backToQuizBtn">返回测试</button>
-            <span class="badge" id="schoolCount">0 所</span>
-        </div>
-        
-        <!-- 标签栏 (只在全部学校页面显示) -->
-        <div class="tag-bar" id="tagBar"></div>
-        
-        <input type="text" id="schoolSearch" placeholder="🔍 搜索学校名称" style="width:100%; padding:14px 18px; border:1.5px solid #dbe0e8; border-radius:60px; margin-bottom:20px;">
-        <div style="max-height: 500px; overflow-y: auto;" id="schoolList">
-            <!-- 动态生成学校列表 -->
-        </div>
+<!-- NEWSLETTER -->
+<section class="section section--tight" id="subscribe">
+  <div class="container">
+    <div class="newsletter reveal">
+      <h2>Instagram changed something?<br>We'll tell you first.</h2>
+      <p>Every time the platform tweaks its rules or launches a new feature, we send you a plain-English breakdown. No spam, unsubscribe anytime.</p>
+      <form class="news-form" onsubmit="event.preventDefault();this.reset();alert('Subscribed! We\'ll send the next update to your inbox.');">
+        <input type="email" placeholder="Enter your email address" required>
+        <button type="submit" class="btn btn--primary">Subscribe free</button>
+      </form>
+      <p class="news-note">We respect your privacy. We will never share your email.</p>
     </div>
+  </div>
+</section>
 
-    <!-- 热点资讯区域（SEO优化 + 真实跳转链接） -->
-    <div class="hot-topics">
-        <h3 class="hot-title">📰 2026广州中考热点·政策·数据</h3>
-        <div class="hot-grid">
-            <div class="hot-item">
-                <span class="hot-tag hot">🔥 热点</span>
-                <a href="https://m.mp.oeeee.com/a/BAAFRD0000202603101536097.html" target="_blank" rel="noopener noreferrer" class="hot-link">2026广州中考人数预计15.3万，新增普高学位1.5万+</a>
-            </div>
-            <div class="hot-item">
-                <span class="hot-tag hot">🔥 热点</span>
-                <a href="https://news.qq.com/rain/a/20260101A01PCZ00" target="_blank" rel="noopener noreferrer" class="hot-link">广州中考“铁腕十条”出台：严禁签约、包捞、人籍分离</a>
-            </div>
-            <div class="hot-item">
-                <span class="hot-tag data">📊 数据</span>
-                <a href="https://m.mp.oeeee.com/a/BAAFRD0000202603101536097.html" target="_blank" rel="noopener noreferrer" class="hot-link">2025区属高中外区计划利用率仅56%，近一半名额空着</a>
-            </div>
-            <div class="hot-item">
-                <span class="hot-tag data">📊 数据</span>
-                <a href="https://edu.ycwb.com/2025-12/31/content_53884700.htm" target="_blank" rel="noopener noreferrer" class="hot-link">广州一模时隔17年恢复全市统考，精准定位全市排名</a>
-            </div>
-            <div class="hot-item">
-                <span class="hot-tag hot">🔥 政策</span>
-                <a href="https://gzzk.gz.gov.cn/zwgk/zcfg/zcjd/content/post_10705174.html" target="_blank" rel="noopener noreferrer" class="hot-link">随迁子女报考公办：只需父母一方居住证，取消社保要求</a>
-            </div>
-            <div class="hot-item">
-                <span class="hot-tag hot">🔥 趋势</span>
-                <a href="http://bj.offcn.cc/zkfs/id/43301.html" target="_blank" rel="noopener noreferrer" class="hot-link">广州高中梯度线公布：第一梯度707分，第二梯度667分</a>
-            </div>
-        </div>
-        <p style="font-size:0.75rem; color:#8a9db5; margin-top:12px; text-align:right;">数据来源：广州市招考办、南方都市报、羊城晚报、新快报、信息时报</p>
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><span class="logo-mark">IG</span><span>IGZZK·Knowledge</span></a>
+        <p>Instagram official docs, translated into plain English. From zero to confident.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Knowledge Base</h5>
+        <ul>
+          <li><a href="algorithm-decoded.html">Algorithm Decoded</a></li>
+          <li><a href="how-to-post.html">How to Post</a></li>
+          <li><a href="business-tools.html">Business Tools</a></li>
+          <li><a href="pitfalls.html">Pitfalls to Avoid</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Popular</h5>
+        <ul>
+          <li><a href="article-algorithm-2026.html">2026 algorithm guide</a></li>
+          <li><a href="article-reels.html">Reels algorithm</a></li>
+          <li><a href="article-recovery.html">Account recovery</a></li>
+          <li><a href="article-features.html">2026 feature roundup</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>About</h5>
+        <ul>
+          <li><a href="about.html">About us</a></li>
+          <li><a href="editorial.html">Editorial policy</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy.html">Privacy policy</a></li>
+        </ul>
+      </div>
     </div>
-
-    <div class="footnote">
-        * 基于2025年录取线及学校特征，匹配度综合分数、区域、住宿、性质等计算。点击校名可查看完整资料（分数线、高考成绩、官网等）。
+    <div class="footer-bottom">
+      <span>© 2026 IGZZK.com · All rights reserved</span>
+      <p class="disclaimer">This is an independent knowledge site. We are not affiliated with Meta Platforms, Inc. or Instagram. "Instagram" is a trademark of Meta Platforms, Inc.</p>
     </div>
-</div>
-
-<!-- 二维码模态框 -->
-<div id="qrModal" class="modal" style="display: none;">
-    <div class="modal-content" style="max-width: 300px; text-align: center;">
-        <h3 style="margin-bottom: 16px;">📱 扫码访问广州中考助手</h3>
-        <div style="background: white; padding: 16px; border-radius: 16px; margin-bottom: 16px;">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=10&data=https://yourusername.github.io/gz-zhongkao-assistant" alt="二维码" style="width: 200px; height: 200px;">
-        </div>
-        <p style="color: #5f7d9c; margin-bottom: 16px; word-break: break-all;">https://yourusername.github.io/gz-zhongkao-assistant</p>
-        <button class="poster-modal-btn" id="closeQrBtn" style="width: 100%;">关 闭</button>
-    </div>
-</div>
-
-<!-- 隐藏的Canvas用于生成海报 -->
-<canvas id="posterCanvas" width="375" height="700"></canvas>
-
-<!-- 学校详情模态框 -->
-<div id="schoolModal" class="modal">
-    <div class="modal-content" id="modalContent">
-        <!-- 动态填充 -->
-    </div>
-</div>
-
-<!-- 海报预览模态框 -->
-<div id="posterModal" class="modal" style="display: none;">
-    <div class="modal-content" style="max-width: 400px; text-align: center;">
-        <img id="posterImage" style="width: 100%; border-radius: 24px; margin-bottom: 16px;" src="" alt="海报预览">
-        <div style="display: flex; gap: 12px; justify-content: center;">
-            <button class="poster-modal-btn secondary" id="closePosterBtn">关 闭</button>
-            <button class="poster-modal-btn" id="savePosterBtn">保存图片</button>
-        </div>
-    </div>
-</div>
-
-<!-- 结构化数据 (JSON-LD for SEO) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "广州中考助手",
-  "description": "2026广州中考学校匹配测试，查询160+所学校分数线、高考成绩、宿位信息",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "All",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "CNY"
-  },
-  "keywords": "广州中考,中考分数线,高中排名,志愿填报,华附,省实,广雅,执信,广大附中"
-}
-</script>
+  </div>
+</footer>
 
 <script>
-(function() {
-    // ---------- 学校数据库 (完整版，含高考成绩) ----------
-    const schoolData = [
-        // 省市属 第一梯队
-        { 
-            name: "华附（石牌校区）", 
-            area: "省市属", 
-            score2025: 740, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["第一梯队", "顶级名校", "奥赛强校"],
-            history: [740, 738, 735], 
-            website: "http://www.hsfz.net.cn", 
-            wechat: "华南师大附中", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "98%+",
-                top600: "85%",
-                qingbei: "约30人",
-                c9: "60%+",
-                note: "全省顶级，竞赛保送人数常年全省第一"
-            }
-        },
-        { 
-            name: "广大附中", 
-            area: "省市属", 
-            score2025: 732, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["第一梯队", "国防特色", "985直通车"],
-            history: [732, 736, 730], 
-            website: "https://www.gdfz.edu.cn", 
-            wechat: "广州大学附属中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "98.7%",
-                top600: "约70%",
-                qingbei: "18人",
-                top985: "近50%",
-                note: "国防班全省独有，2025年20余人通过国防渠道进入名校"
-            }
-        },
-        { 
-            name: "省实（白云校区）", 
-            area: "省市属", 
-            score2025: 729, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["第一梯队", "南山班"],
-            history: [729, 730, 728], 
-            website: "http://www.gdsyzx.edu.cn", 
-            wechat: "广东实验中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "97%+",
-                top600: "80%",
-                qingbei: "约15人",
-                c9: "50%",
-                note: "南山班平均分660+，全省闻名"
-            }
-        },
-        { 
-            name: "省实（荔湾校区）", 
-            area: "省市属", 
-            score2025: 727, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["第一梯队"],
-            history: [727, 731, 729], 
-            website: "http://www.gdsyzx.edu.cn", 
-            wechat: "广东实验中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "97%",
-                top600: "78%",
-                qingbei: "约10人",
-                c9: "45%"
-            }
-        },
-        { 
-            name: "广州二中", 
-            area: "省市属", 
-            score2025: 724, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["第一梯队", "应元班"],
-            history: [724, 726, 723], 
-            website: "https://www.gdgzez.com.cn", 
-            wechat: "广州市第二中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "95%+",
-                top600: "75%",
-                qingbei: "约10人",
-                note: "2026广州零模物理类全市第一名来自二中，总分671分 "
-            }
-        },
-        { 
-            name: "执信（执信路校区）", 
-            area: "省市属", 
-            score2025: 723, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["第一梯队", "元培班"],
-            history: [723, 722, 726], 
-            website: "http://www.zhxhs.net", 
-            wechat: "广州市执信中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "95%",
-                top600: "70%",
-                qingbei: "约8人",
-                note: "2026零模物理类均分533分，历史类语文均分107.4分 "
-            }
-        },
-        { 
-            name: "执信（天河校区）", 
-            area: "省市属", 
-            score2025: 720, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["第一梯队"],
-            history: [720, 718, null], 
-            website: "http://www.zhxhs.net", 
-            wechat: "广州市执信中学", 
-            dorm: "全寄宿",
-            gaokao: {
-                rate: "92%",
-                top600: "65%",
-                note: "新校区暂无完整高考数据"
-            }
-        },
-        { 
-            name: "广雅（荔湾校区）", 
-            area: "省市属", 
-            score2025: 719, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["第一梯队", "岭南班"],
-            history: [719, 721, 718], 
-            website: "http://www.gyzx.edu.cn", 
-            wechat: "广东广雅中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "94%",
-                top600: "72%",
-                qingbei: "约6人"
-            }
-        },
-        { 
-            name: "广雅（花都校区）", 
-            area: "省市属", 
-            score2025: 718, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["第一梯队"],
-            history: [718, 716, null], 
-            website: "http://www.gyzx.edu.cn", 
-            wechat: "广东广雅中学", 
-            dorm: "全寄宿",
-            gaokao: {
-                rate: "90%",
-                top600: "60%",
-                note: "新校区首届高考表现优异"
-            }
-        },
-        { 
-            name: "铁一（越秀校区）", 
-            area: "省市属", 
-            score2025: 717, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["第一梯队"],
-            history: [717, 715, 714], 
-            website: "http://www.gtyz.net", 
-            wechat: "广州市铁一中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "90%",
-                top600: "60%"
-            }
-        },
-        { 
-            name: "铁一（番禺校区）", 
-            area: "省市属", 
-            score2025: 715, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["第一梯队"],
-            history: [715, 713, 712], 
-            website: "http://www.gtyz.net", 
-            wechat: "广州市铁一中学", 
-            dorm: "全寄宿",
-            gaokao: {
-                rate: "89%",
-                top600: "58%"
-            }
-        },
-        { 
-            name: "广州外国语", 
-            area: "省市属", 
-            score2025: 700, 
-            gradient: 2, 
-            nature: "公办", 
-            tags: ["外语特色", "寄宿"],
-            history: [700, 705, 699], 
-            website: "http://www.chgzfls.com", 
-            wechat: "广州外国语学校", 
-            dorm: "全寄宿",
-            gaokao: {
-                rate: "92%",
-                top600: "60%",
-                note: "2026零模地理科目全市第二名来自广外，赋分99分 "
-            }
-        },
-        
-        // 区属龙头及热门
-        { 
-            name: "天河外国语（珠江新城）", 
-            area: "天河", 
-            score2025: 714, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["区属龙头", "外语"],
-            history: [714, 712, 715], 
-            website: "http://www.thfls.com", 
-            wechat: "天河外国语学校", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "97.01%",
-                top600: "61%",
-                note: "天河区高考成绩表现突出，高优率曾达97%"
-            }
-        },
-        { 
-            name: "广州五中（校本部）", 
-            area: "海珠", 
-            score2025: 711, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["区属龙头"],
-            history: [711, 708, 705], 
-            website: "http://www.gz5z.com", 
-            wechat: "广州市第五中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "80%",
-                note: "重点大学上线人数二十年来排在海珠区第一位 "
-            }
-        },
-        { 
-            name: "十六中（校本部）", 
-            area: "越秀", 
-            score2025: 707, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["区属龙头"],
-            history: [707, 703, 700], 
-            website: "http://www.gz16z.com", 
-            wechat: "广州市第十六中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "75%"
-            }
-        },
-        { 
-            name: "天河外国语（智慧城）", 
-            area: "天河", 
-            score2025: 707, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["新校区"],
-            history: [707, null, null], 
-            website: "http://www.thfls.com", 
-            wechat: "天河外国语学校", 
-            dorm: "全寄宿",
-            gaokao: {
-                note: "新校区，暂无高考数据"
-            }
-        },
-        { 
-            name: "培英中学（白云新城）", 
-            area: "白云", 
-            score2025: 707, 
-            gradient: 1, 
-            nature: "公办", 
-            tags: ["区属龙头"],
-            history: [707, 698, 690], 
-            website: "http://www.pyzx.com", 
-            wechat: "广州市培英中学", 
-            dorm: "全寄宿",
-            gaokao: {
-                rate: "70%",
-                note: "白云区属龙头，近年来高考成绩稳步提升"
-            }
-        },
-        { 
-            name: "广州中学", 
-            area: "天河", 
-            score2025: 690, 
-            gradient: 2, 
-            nature: "公办", 
-            tags: ["区属龙头"],
-            history: [690, 695, 688], 
-            website: "http://www.guangzhouhs.com", 
-            wechat: "广州中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "80%",
-                note: "天河区热门，高考特控率80%"
-            }
-        },
-        { 
-            name: "七中", 
-            area: "越秀", 
-            score2025: 695, 
-            gradient: 2, 
-            nature: "公办", 
-            tags: ["区属龙头"],
-            history: [695, 692, 689], 
-            website: "http://www.gzqz.com", 
-            wechat: "广州市第七中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "75%"
-            }
-        },
-        { 
-            name: "仲元中学", 
-            area: "番禺", 
-            score2025: 688, 
-            gradient: 2, 
-            nature: "公办", 
-            tags: ["区属龙头"],
-            history: [688, 690, 685], 
-            website: "http://www.gdzyzx.cn", 
-            wechat: "广东仲元中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "75%"
-            }
-        },
-        { 
-            name: "玉岩中学", 
-            area: "黄埔", 
-            score2025: 680, 
-            gradient: 2, 
-            nature: "公办", 
-            tags: ["区属"],
-            history: [680, 675, 678], 
-            website: "http://www.yuyan.edu.cn", 
-            wechat: "广州市玉岩中学", 
-            dorm: "全寄宿",
-            gaokao: {
-                rate: "65%"
-            }
-        },
-        { 
-            name: "真光中学（本部）", 
-            area: "荔湾", 
-            score2025: 672, 
-            gradient: 2, 
-            nature: "公办", 
-            tags: ["区属"],
-            history: [672, 668, 670], 
-            website: "http://www.gztlms.com", 
-            wechat: "广州市真光中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "70%"
-            }
-        },
-        { 
-            name: "南武中学", 
-            area: "海珠", 
-            score2025: 660, 
-            gradient: 3, 
-            nature: "公办", 
-            tags: ["区属"],
-            history: [660, 655, 658], 
-            website: "http://www.gznanwu.com", 
-            wechat: "广州市南武中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "55%"
-            }
-        },
-        { 
-            name: "一一三中学", 
-            area: "天河", 
-            score2025: 640, 
-            gradient: 3, 
-            nature: "公办", 
-            tags: ["区属"],
-            history: [640, 638, 635], 
-            website: "http://www.113ms.net", 
-            wechat: "广州市第一一三中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "50%",
-                note: "天河区第二梯队，特控率约50%"
-            }
-        },
-        { 
-            name: "一中", 
-            area: "荔湾", 
-            score2025: 650, 
-            gradient: 3, 
-            nature: "公办", 
-            tags: ["区属"],
-            history: [650, 648, 645], 
-            website: "http://www.gz1z.com", 
-            wechat: "广州市第一中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "45%"
-            }
-        },
-        { 
-            name: "三中", 
-            area: "越秀", 
-            score2025: 645, 
-            gradient: 3, 
-            nature: "公办", 
-            tags: ["区属"],
-            history: [645, 640, 642], 
-            website: "http://www.gz3z.com", 
-            wechat: "广州市第三中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "45%"
-            }
-        },
-        { 
-            name: "四中", 
-            area: "荔湾", 
-            score2025: 638, 
-            gradient: 3, 
-            nature: "公办", 
-            tags: ["区属"],
-            history: [638, 635, 632], 
-            website: "http://www.gz4z.com", 
-            wechat: "广州市第四中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "40%"
-            }
-        },
-        { 
-            name: "西关外国语", 
-            area: "荔湾", 
-            score2025: 635, 
-            gradient: 3, 
-            nature: "公办", 
-            tags: ["外语"],
-            history: [635, 630, 633], 
-            website: "http://www.gzxw.com", 
-            wechat: "广州市西关外国语学校", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "40%"
-            }
-        },
-        { 
-            name: "秀全中学", 
-            area: "花都", 
-            score2025: 625, 
-            gradient: 3, 
-            nature: "公办", 
-            tags: ["区属龙头"],
-            history: [625, 620, 623], 
-            website: "http://www.hdxqzx.com", 
-            wechat: "广州市花都区秀全中学", 
-            dorm: "全寄宿",
-            gaokao: {
-                rate: "45%"
-            }
-        },
-        { 
-            name: "增城中学", 
-            area: "增城", 
-            score2025: 610, 
-            gradient: 4, 
-            nature: "公办", 
-            tags: ["区属龙头"],
-            history: [610, 608, 605], 
-            website: "http://www.zcms.net", 
-            wechat: "广州市增城区增城中学", 
-            dorm: "全寄宿",
-            gaokao: {
-                rate: "40%"
-            }
-        },
-        { 
-            name: "从化中学", 
-            area: "从化", 
-            score2025: 595, 
-            gradient: 4, 
-            nature: "公办", 
-            tags: ["区属龙头"],
-            history: [595, 590, 592], 
-            website: "http://www.chzx.net", 
-            wechat: "广州市从化区从化中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "35%"
-            }
-        },
-        
-        // 民办公费班
-        { 
-            name: "黄广附属学校（公费班）", 
-            area: "民办", 
-            score2025: 737, 
-            gradient: 1, 
-            nature: "民办", 
-            tags: ["公费班", "民办顶尖"],
-            history: [737, 735, null], 
-            website: "http://www.hgxx.com", 
-            wechat: "黄广附属学校", 
-            dorm: "全寄宿",
-            gaokao: {
-                rate: "90%",
-                top600: "60%",
-                note: "民办天花板，公费班高考成绩接近前八所"
-            }
-        },
-        { 
-            name: "广州天省实验学校", 
-            area: "民办", 
-            score2025: 699, 
-            gradient: 2, 
-            nature: "民办", 
-            tags: ["民办"],
-            history: [699, 697, 695], 
-            website: "http://www.gdems.cn", 
-            wechat: "广州天省实验学校", 
-            dorm: "全寄宿",
-            gaokao: {
-                rate: "70%"
-            }
-        },
-        { 
-            name: "清湾附中", 
-            area: "省市属", 
-            score2025: 685, 
-            gradient: 2, 
-            nature: "公办", 
-            tags: ["清华合作"],
-            history: [685, 682, null], 
-            website: "http://www.thtx.edu.cn", 
-            wechat: "清华附中湾区学校", 
-            dorm: "全寄宿",
-            gaokao: {
-                note: "新办校区，暂无高考数据"
-            }
-        },
-        { 
-            name: "培正中学", 
-            area: "越秀", 
-            score2025: 665, 
-            gradient: 2, 
-            nature: "公办", 
-            tags: ["区属"],
-            history: [665, 660, 663], 
-            website: "http://www.pzms.com", 
-            wechat: "广州市培正中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "65%"
-            }
-        },
-        { 
-            name: "育才中学", 
-            area: "越秀", 
-            score2025: 652, 
-            gradient: 3, 
-            nature: "公办", 
-            tags: ["区属"],
-            history: [652, 648, 650], 
-            website: "http://www.gzyucai.net", 
-            wechat: "广州市育才中学", 
-            dorm: "部分寄宿",
-            gaokao: {
-                rate: "50%"
-            }
-        },
-        { 
-            name: "南沙一中", 
-            area: "南沙", 
-            score2025: 590, 
-            gradient: 4, 
-            nature: "公办", 
-            tags: ["区属龙头"],
-            history: [590, 588, 585], 
-            website: "http://www.nsyz.cn", 
-            wechat: "广州市南沙第一中学", 
-            dorm: "全寄宿",
-            gaokao: {
-                rate: "30%"
-            }
-        }
-    ];
-
-    // 按分数排序
-    schoolData.sort((a,b) => b.score2025 - a.score2025);
-
-    // ---------- 问题定义 ----------
-    const questions = [
-        { 
-            text: "1. 你的预估分数或年级排名？", 
-            options: [
-                "A. 710分以上 / 年级前5%", 
-                "B. 670-709分 / 年级前10%", 
-                "C. 630-669分 / 年级前20%", 
-                "D. 590-629分 / 年级前30%", 
-                "E. 550-589分 / 年级前40%",
-                "F. 550分以下 / 年级40%以后"
-            ] 
-        },
-        { 
-            text: "2. 你所在的区域？", 
-            options: [
-                "A. 越秀区", "B. 海珠区", "C. 荔湾区", "D. 天河区", "E. 白云区", "F. 黄埔区", 
-                "G. 番禺区", "H. 花都区", "I. 南沙区", "J. 增城区", "K. 从化区", "L. 无所谓，全市可接受"
-            ] 
-        },
-        { 
-            text: "3. 优先考虑公办还是民办？", 
-            options: ["A. 公办（学费低）", "B. 民办（可公费班）", "C. 都可以"] 
-        },
-        { 
-            text: "4. 需要住宿吗？", 
-            options: ["A. 必须住宿", "B. 可住可走读", "C. 不需要住宿"] 
-        },
-        { 
-            text: "5. 对学校类型的偏好？", 
-            options: ["A. 传统名校（省市属）", "B. 区属龙头（本区最好）", "C. 新办校区（硬件新）", "D. 综合高中/无所谓"] 
-        }
-    ];
-
-    // ---------- 状态 ----------
-    let currentStep = 0;
-    let answers = [null, null, null, null, null];
-    let currentRecommendations = [];
-    let currentTag = 'all';
-
-    // DOM 元素
-    const progressSteps = [document.getElementById('step1'), document.getElementById('step2'), document.getElementById('step3'), document.getElementById('step4'), document.getElementById('step5')];
-    const questionText = document.getElementById('questionText');
-    const optionsDiv = document.getElementById('optionsContainer');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const restartBtn = document.getElementById('restartBtn');
-    const quizArea = document.getElementById('quizArea');
-    const resultArea = document.getElementById('resultArea');
-    const schoolLibArea = document.getElementById('schoolLibArea');
-    const userSummary = document.getElementById('userSummary');
-    const recommendationsList = document.getElementById('recommendationsList');
-    const restartFromResultBtn = document.getElementById('restartFromResultBtn');
-    const shareMockBtn = document.getElementById('shareMockBtn');
-    const schoolLibBtn = document.getElementById('schoolLibBtn');
-    const backToQuizBtn = document.getElementById('backToQuizBtn');
-    const schoolSearch = document.getElementById('schoolSearch');
-    const schoolList = document.getElementById('schoolList');
-    const tagBar = document.getElementById('tagBar');
-    const libTitle = document.getElementById('libTitle');
-    const schoolCount = document.getElementById('schoolCount');
-    
-    // 模态框相关
-    const schoolModal = document.getElementById('schoolModal');
-    const modalContent = document.getElementById('modalContent');
-    
-    // 二维码相关
-    const qrCodeTrigger = document.getElementById('qrCodeTrigger');
-    const qrModal = document.getElementById('qrModal');
-    const closeQrBtn = document.getElementById('closeQrBtn');
-    
-    // 海报预览相关
-    const posterModal = document.getElementById('posterModal');
-    const posterImage = document.getElementById('posterImage');
-    const closePosterBtn = document.getElementById('closePosterBtn');
-    const savePosterBtn = document.getElementById('savePosterBtn');
-
-    // ---------- 生成标签栏 ----------
-    function renderTags() {
-        const allCount = schoolData.length;
-        const t1Count = schoolData.filter(s => s.gradient === 1).length;
-        const t2Count = schoolData.filter(s => s.gradient === 2).length;
-        const t3Count = schoolData.filter(s => s.gradient === 3).length;
-        const t4Count = schoolData.filter(s => s.gradient === 4).length;
-        const shengCount = schoolData.filter(s => s.area === '省市属').length;
-        const quCount = schoolData.filter(s => s.tags?.includes('区属龙头')).length;
-        const minbanCount = schoolData.filter(s => s.nature === '民办').length;
-        
-        const tags = [
-            { id: 'all', name: '全部', count: allCount },
-            { id: 't1', name: '第一梯队', count: t1Count },
-            { id: 't2', name: '第二梯队', count: t2Count },
-            { id: 't3', name: '第三梯队', count: t3Count },
-            { id: 't4', name: '第四梯队', count: t4Count },
-            { id: 'sheng', name: '省市属', count: shengCount },
-            { id: 'qu', name: '区属龙头', count: quCount },
-            { id: 'minban', name: '民办', count: minbanCount },
-        ];
-        
-        let html = '';
-        tags.forEach(tag => {
-            html += `<div class="filter-tag ${currentTag === tag.id ? 'active' : ''}" data-tag="${tag.id}">${tag.name} <span class="tag-count">${tag.count}</span></div>`;
-        });
-        tagBar.innerHTML = html;
-        
-        document.querySelectorAll('.filter-tag').forEach(el => {
-            el.addEventListener('click', (e) => {
-                const tag = e.currentTarget.dataset.tag;
-                currentTag = tag;
-                renderTags();
-                renderSchoolLib(schoolSearch.value);
-            });
-        });
-    }
-
-    // ---------- 根据标签ID获取筛选条件 ----------
-    function getTagFilter(tagId) {
-        return (school) => {
-            if (tagId === 'all') return true;
-            if (tagId === 't1') return school.gradient === 1;
-            if (tagId === 't2') return school.gradient === 2;
-            if (tagId === 't3') return school.gradient === 3;
-            if (tagId === 't4') return school.gradient === 4;
-            if (tagId === 'sheng') return school.area === '省市属';
-            if (tagId === 'qu') return school.tags?.includes('区属龙头');
-            if (tagId === 'minban') return school.nature === '民办';
-            return true;
-        };
-    }
-
-    // ---------- 学校库渲染 ----------
-    function renderSchoolLib(searchTerm = '') {
-        let filtered = schoolData;
-        filtered = filtered.filter(getTagFilter(currentTag));
-        
-        if (searchTerm) {
-            filtered = filtered.filter(s => s.name.toLowerCase().includes(searchTerm.toLowerCase()));
-        }
-        
-        const tagName = document.querySelector(`.filter-tag[data-tag="${currentTag}"]`)?.innerText.split('<')[0] || '全部';
-        libTitle.innerText = `📚 ${tagName}学校`;
-        schoolCount.innerText = `${filtered.length} 所`;
-        
-        let html = '';
-        filtered.forEach(s => {
-            html += `
-                <div class="rec-card" data-school-name="${s.name}" style="cursor:pointer;">
-                    <div class="rec-header">
-                        <span class="rec-name">${s.name}</span>
-                        <span class="rec-badge">${s.area} · ${s.nature}</span>
-                        <span class="rec-score">${s.score2025}分</span>
-                    </div>
-                    <div class="rec-footer">
-                        <span>🏘️ ${s.dorm}</span>
-                        <span>📊 梯度 ${s.gradient}</span>
-                        ${s.tags?.includes('公费班')?'<span>🌟 公费班</span>':''}
-                    </div>
-                </div>
-            `;
-        });
-        
-        schoolList.innerHTML = html;
-
-        document.querySelectorAll('#schoolList .rec-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                const schoolName = card.dataset.schoolName;
-                const school = schoolData.find(s => s.name === schoolName);
-                if (school) showSchoolDetail(school);
-            });
-        });
-    }
-
-    // 更新进度条
-    function updateProgress() {
-        progressSteps.forEach((step, idx) => {
-            step.classList.remove('active', 'completed');
-            if (idx < currentStep) step.classList.add('completed');
-            else if (idx === currentStep) step.classList.add('active');
-        });
-    }
-
-    // 渲染当前问题
-    function renderStep() {
-        const q = questions[currentStep];
-        questionText.innerText = q.text;
-        let optsHtml = '';
-        q.options.forEach((opt, idx) => {
-            const selectedClass = (answers[currentStep] === opt) ? 'selected' : '';
-            optsHtml += `<div class="option-btn ${selectedClass}" data-opt="${opt}">${opt}</div>`;
-        });
-        optionsDiv.innerHTML = optsHtml;
-
-        document.querySelectorAll('.option-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const opt = e.target.dataset.opt;
-                answers[currentStep] = opt;
-                renderStep();
-                if (answers[currentStep]) {
-                    if (currentStep < questions.length - 1) {
-                        nextBtn.disabled = false;
-                    } else {
-                        nextBtn.disabled = false;
-                        nextBtn.innerText = '查看结果 →';
-                    }
-                }
-            });
-        });
-
-        prevBtn.disabled = (currentStep === 0);
-        if (answers[currentStep]) {
-            nextBtn.disabled = false;
-        } else {
-            nextBtn.disabled = true;
-        }
-        if (currentStep === questions.length - 1) {
-            nextBtn.innerText = '查看结果 →';
-        } else {
-            nextBtn.innerText = '下一步 →';
-        }
-
-        updateProgress();
-    }
-
-    // ---------- 推荐算法 ----------
-    function getScoreFromAnswer(ans) {
-        if (!ans) return 650;
-        const opt = ans[0];
-        switch(opt) {
-            case 'A': return 730;
-            case 'B': return 690;
-            case 'C': return 650;
-            case 'D': return 610;
-            case 'E': return 570;
-            case 'F': return 530;
-            default: return 650;
-        }
-    }
-
-    function getAreaCode(ans) {
-        if (!ans) return 'all';
-        if (ans.includes('无所谓')) return 'all';
-        const match = ans.match(/[.](.+)/);
-        if (match) return match[1].trim();
-        return 'all';
-    }
-
-    function getNaturePref(ans) {
-        if (!ans) return 'all';
-        if (ans.includes('公办')) return '公办';
-        if (ans.includes('民办')) return '民办';
-        return 'all';
-    }
-
-    function getDormPref(ans) {
-        if (!ans) return 'any';
-        if (ans.includes('必须住宿')) return 'need';
-        if (ans.includes('不需要住宿')) return 'noneed';
-        return 'any';
-    }
-
-    function getTypePref(ans) {
-        if (!ans) return 'all';
-        if (ans.includes('传统名校')) return '省市属';
-        if (ans.includes('区属龙头')) return '区属龙头';
-        if (ans.includes('新办校区')) return '新办校区';
-        return 'all';
-    }
-
-    function generateRecommendations() {
-        const scoreBase = getScoreFromAnswer(answers[0]);
-        const areaPref = getAreaCode(answers[1]);
-        const naturePref = getNaturePref(answers[2]);
-        const dormPref = getDormPref(answers[3]);
-        const typePref = getTypePref(answers[4]);
-
-        const low = scoreBase - 20;
-        const high = scoreBase + 20;
-
-        let candidates = schoolData.filter(s => s.score2025 >= low && s.score2025 <= high);
-
-        if (areaPref !== 'all') {
-            candidates = candidates.filter(s => s.area === areaPref || s.area === '省市属');
-        }
-
-        if (naturePref !== 'all') {
-            candidates = candidates.filter(s => s.nature === naturePref);
-        }
-
-        if (typePref !== 'all') {
-            if (typePref === '省市属') {
-                candidates = candidates.filter(s => s.area === '省市属');
-            } else if (typePref === '区属龙头') {
-                candidates = candidates.filter(s => s.tags?.includes('区属龙头') || s.name.includes('天河外国语') || s.name.includes('广州五中') || s.name.includes('十六中'));
-            } else if (typePref === '新办校区') {
-                candidates = candidates.filter(s => s.name.includes('新') || s.name.includes('智慧城') || s.name.includes('白云校区'));
-            }
-        }
-
-        candidates.sort((a,b) => Math.abs(a.score2025 - scoreBase) - Math.abs(b.score2025 - scoreBase));
-        const top5 = candidates.slice(0,6);
-        currentRecommendations = top5;
-
-        let html = '';
-        if (top5.length === 0) {
-            html = '<p style="padding:20px; text-align:center;">😢 没有完全匹配的学校，试试调整选项或放宽条件。</p>';
-        } else {
-            top5.forEach(s => {
-                const diff = s.score2025 - scoreBase;
-                const matchScore = Math.max(0, 100 - Math.abs(diff) * 2).toFixed(0);
-                const recommendReason = s.desc || `${s.name}是${s.area}${s.nature}，${s.score2025}分，梯度${s.gradient}，${s.dorm}。`;
-                html += `
-                <div class="rec-card" data-school-name="${s.name}">
-                    <div class="rec-header">
-                        <span class="rec-name">${s.name}</span>
-                        <span class="rec-badge">${s.area} · ${s.nature}</span>
-                        <span class="rec-score">${s.score2025}分</span>
-                    </div>
-                    <div class="match-bar"><div class="match-fill" style="width:${matchScore}%"></div></div>
-                    <div class="rec-reason">💡 推荐理由：${recommendReason} 你的分数${diff>0? '低于该校'+Math.abs(diff)+'分，可冲刺' : diff<0? '高于该校'+Math.abs(diff)+'分，较稳妥' : '完全匹配'}。</div>
-                    <div class="rec-footer">
-                        <span>🏘️ ${s.dorm}</span>
-                        <span>📊 梯度 ${s.gradient}</span>
-                        ${s.tags?.includes('公费班')?'<span>🌟 公费班</span>':''}
-                    </div>
-                </div>
-                `;
-            });
-        }
-        recommendationsList.innerHTML = html;
-
-        document.querySelectorAll('.rec-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                const schoolName = card.dataset.schoolName;
-                const school = schoolData.find(s => s.name === schoolName);
-                if (school) showSchoolDetail(school);
-            });
-        });
-
-        const summaryText = `📌 你的选择：${answers[0] || '?'} · 区域 ${answers[1] || '?'} · ${answers[2] || '?'} · ${answers[3] || '?'} · ${answers[4] || '?'}`;
-        userSummary.innerText = summaryText;
-    }
-
-    function showResult() {
-        quizArea.classList.add('hidden');
-        resultArea.classList.remove('hidden');
-        schoolLibArea.classList.add('hidden');
-        generateRecommendations();
-    }
-
-    function restartQuiz() {
-        currentStep = 0;
-        answers = [null, null, null, null, null];
-        quizArea.classList.remove('hidden');
-        resultArea.classList.add('hidden');
-        schoolLibArea.classList.add('hidden');
-        renderStep();
-    }
-
-    // ---------- 从标签跳转到学校库 ----------
-    function jumpToTag(tagId) {
-        quizArea.classList.add('hidden');
-        resultArea.classList.add('hidden');
-        schoolLibArea.classList.remove('hidden');
-        currentTag = tagId;
-        renderTags();
-        renderSchoolLib('');
-    }
-
-    // ---------- 学校详情模态框 ----------
-    function showSchoolDetail(school) {
-        const history2025 = school.history[0] || school.score2025;
-        const history2024 = school.history[1] || '—';
-        const history2023 = school.history[2] || '—';
-        
-        const tags = [];
-        if (school.gradient === 1) tags.push({ name: '第一梯队', tagId: 't1' });
-        else if (school.gradient === 2) tags.push({ name: '第二梯队', tagId: 't2' });
-        else if (school.gradient === 3) tags.push({ name: '第三梯队', tagId: 't3' });
-        else if (school.gradient === 4) tags.push({ name: '第四梯队', tagId: 't4' });
-        
-        if (school.area === '省市属') tags.push({ name: '省市属', tagId: 'sheng' });
-        else tags.push({ name: school.area, tagId: 'area_' + school.area });
-        
-        if (school.tags?.includes('区属龙头')) tags.push({ name: '区属龙头', tagId: 'qu' });
-        if (school.nature === '民办') tags.push({ name: '民办', tagId: 'minban' });
-        else if (school.nature === '公办') tags.push({ name: '公办', tagId: 'gongban' });
-        
-        if (school.tags?.includes('公费班')) tags.push({ name: '公费班', tagId: 'gongfei' });
-        
-        const tagsHtml = tags.map(t => {
-            if (t.tagId.startsWith('area_')) {
-                return `<span class="feature-tag secondary">${t.name}</span>`;
-            } else {
-                return `<span class="feature-tag" data-tag-id="${t.tagId}">${t.name}</span>`;
-            }
-        }).join('');
-        
-        const websiteLink = school.website ? `<a href="${school.website}" target="_blank" class="official-link">🏛️ 官网直达</a>` : '<span class="official-link" style="background:#eee;">官网暂无</span>';
-        const wechatDisplay = school.wechat ? `<span class="wechat-id">📱 公众号: ${school.wechat}</span>` : '<span class="wechat-id" style="background:#eee;">公众号暂缺</span>';
-        
-        const gaokao = school.gaokao || {};
-        const gaokaoHtml = `
-            <div class="gaokao-section">
-                <div class="gaokao-title">📈 高考成绩 · 近年数据</div>
-                <div class="gaokao-grid">
-                    ${gaokao.rate ? `<div class="gaokao-item"><div class="gaokao-label">特控率/高优率</div><div class="gaokao-value">${gaokao.rate}</div></div>` : ''}
-                    ${gaokao.top600 ? `<div class="gaokao-item"><div class="gaokao-label">600分以上</div><div class="gaokao-value">${gaokao.top600}</div></div>` : ''}
-                    ${gaokao.qingbei ? `<div class="gaokao-item"><div class="gaokao-label">清北录取</div><div class="gaokao-value">${gaokao.qingbei}</div></div>` : ''}
-                    ${gaokao.c9 ? `<div class="gaokao-item"><div class="gaokao-label">C9录取率</div><div class="gaokao-value">${gaokao.c9}</div></div>` : ''}
-                    ${gaokao.top985 ? `<div class="gaokao-item"><div class="gaokao-label">985录取率</div><div class="gaokao-value">${gaokao.top985}</div></div>` : ''}
-                </div>
-                ${gaokao.note ? `<div class="gaokao-note">✨ ${gaokao.note}</div>` : ''}
-                ${!gaokao.rate && !gaokao.note ? '<p style="color:#7b8ea6; text-align:center;">暂无详细高考数据</p>' : ''}
-            </div>
-        `;
-        
-        modalContent.innerHTML = `
-            <div class="modal-header">
-                <h2>${school.name}</h2>
-                <button class="close-btn" id="closeModalBtn">&times;</button>
-            </div>
-            <div class="feature-tags" id="modalTags">
-                ${tagsHtml}
-            </div>
-            
-            <div class="detail-grid">
-                <div class="detail-item">
-                    <span class="detail-label">2025分数线</span>
-                    <span class="detail-value">${school.score2025}</span>
-                    <span class="small-note">梯度 ${school.gradient}</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">预估2026</span>
-                    <span class="detail-value">${school.gradient === 1 ? '707+' : school.gradient === 2 ? '667-706' : school.gradient === 3 ? '627-666' : '587-626'}</span>
-                </div>
-            </div>
-
-            <h3 style="margin: 24px 0 12px;">📊 近三年录取分数线</h3>
-            <table class="history-table">
-                <thead>
-                    <tr><th>2025年</th><th>2024年</th><th>2023年</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>${history2025}</td><td>${history2024}</td><td>${history2023}</td></tr>
-                </tbody>
-            </table>
-
-            ${gaokaoHtml}
-
-            <div style="margin: 20px 0; background: #f4f9fe; padding: 20px; border-radius: 24px;">
-                <p style="font-weight:600; margin-bottom:8px;">📌 招生计划参考（2025）</p>
-                <p>总计划: ${school.nature === '民办' ? '200-400' : '500-800'}人 · 宿位: ${school.dorm}<br>
-                外区招生: ${school.area==='省市属'? '全市' : '15%外区计划'}</p>
-            </div>
-
-            <div class="official-links">
-                <p style="font-weight:600; margin-bottom:8px;">🔗 官方信息渠道</p>
-                <p>${websiteLink} ${wechatDisplay}</p>
-                <p style="font-size:0.85rem; margin-top:12px; color:#4b6589;">*详细招生简章请查阅官网或官微</p>
-            </div>
-        `;
-        
-        schoolModal.style.display = 'flex';
-        
-        setTimeout(() => {
-            document.querySelectorAll('#modalTags .feature-tag[data-tag-id]').forEach(el => {
-                el.addEventListener('click', (e) => {
-                    const tagId = e.target.dataset.tagId;
-                    schoolModal.style.display = 'none';
-                    jumpToTag(tagId);
-                });
-            });
-        }, 100);
-        
-        document.getElementById('closeModalBtn').addEventListener('click', () => {
-            schoolModal.style.display = 'none';
-        });
-    }
-
-    // 点击模态框外部关闭
-    window.addEventListener('click', (e) => {
-        if (e.target === schoolModal) {
-            schoolModal.style.display = 'none';
-        }
-    });
-
-    // ---------- 二维码相关 ----------
-    if (qrCodeTrigger) {
-        qrCodeTrigger.addEventListener('click', () => {
-            qrModal.style.display = 'flex';
-        });
-    }
-
-    if (closeQrBtn) {
-        closeQrBtn.addEventListener('click', () => {
-            qrModal.style.display = 'none';
-        });
-    }
-
-    // ---------- 海报生成功能 ----------
-    function generatePoster() {
-        if (currentRecommendations.length === 0) {
-            alert('暂无推荐学校，请先完成测试');
-            return null;
-        }
-
-        const canvas = document.getElementById('posterCanvas');
-        const ctx = canvas.getContext('2d');
-        
-        // 根据学校数量动态调整画布高度
-        const schoolCount = currentRecommendations.length;
-        const baseHeight = 450; // 基础高度（标题+选择摘要）
-        const schoolHeight = schoolCount * 90; // 每所学校占90px
-        const footerHeight = 100; // 底部区域高度
-        const totalHeight = baseHeight + schoolHeight + footerHeight;
-        
-        canvas.width = 375;
-        canvas.height = Math.min(800, Math.max(600, totalHeight)); // 最高800px，最低600px
-        
-        // 清空画布
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // 绘制背景渐变
-        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        gradient.addColorStop(0, '#f0f5fb');
-        gradient.addColorStop(1, '#e6f0ff');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // 绘制顶部标题区域
-        ctx.fillStyle = '#1a3a5e';
-        ctx.fillRect(0, 0, canvas.width, 80);
-        
-        ctx.font = 'bold 20px "Inter", "PingFang SC", sans-serif';
-        ctx.fillStyle = 'white';
-        ctx.textAlign = 'center';
-        ctx.fillText('🎯 广州中考 · 学校匹配报告', canvas.width/2, 48);
-        
-        // 绘制用户选择摘要
-        ctx.font = 'bold 14px "Inter", "PingFang SC", sans-serif';
-        ctx.fillStyle = '#1e293b';
-        ctx.textAlign = 'left';
-        ctx.fillText('你的选择：', 20, 110);
-        
-        const answerTexts = [
-            answers[0] ? answers[0].split(' ')[0] : '?',
-            answers[1] ? (answers[1].includes('无所谓') ? '全市' : answers[1].substring(3)) : '?',
-            answers[2] ? (answers[2].includes('公办') ? '公办' : answers[2].includes('民办') ? '民办' : '均可') : '?',
-            answers[3] ? (answers[3].includes('必须住宿') ? '需住宿' : answers[3].includes('不需要') ? '不住宿' : '可住宿') : '?',
-            answers[4] ? (answers[4].includes('传统名校') ? '省市属' : answers[4].includes('区属龙头') ? '区属龙头' : '其他') : '?'
-        ];
-        
-        ctx.font = '12px "Inter", "PingFang SC", sans-serif';
-        ctx.fillStyle = '#2b4b75';
-        ctx.fillText(`分数: ${answerTexts[0]}  |  区域: ${answerTexts[1]}  |  ${answerTexts[2]}  |  ${answerTexts[3]}  |  偏好: ${answerTexts[4]}`, 20, 135);
-        
-        // 绘制推荐学校列表标题
-        ctx.font = 'bold 16px "Inter", "PingFang SC", sans-serif';
-        ctx.fillStyle = '#0b2a4a';
-        ctx.fillText('🎓 推荐学校', 20, 175);
-        
-        // 绘制所有推荐学校
-        let yPos = 200;
-        
-        currentRecommendations.forEach((school, index) => {
-            if (yPos + 80 > canvas.height - 100) return; // 预留底部空间
-            
-            // 卡片背景
-            ctx.fillStyle = 'white';
-            ctx.shadowColor = 'rgba(0,0,0,0.1)';
-            ctx.shadowBlur = 6;
-            ctx.shadowOffsetY = 2;
-            ctx.fillRect(15, yPos - 10, canvas.width - 30, 75);
-            ctx.shadowColor = 'transparent';
-            
-            // 学校排名和名称
-            ctx.font = 'bold 14px "Inter", "PingFang SC", sans-serif';
-            ctx.fillStyle = '#0b2a4a';
-            ctx.fillText(`${index+1}. ${school.name}`, 30, yPos + 12);
-            
-            // 分数
-            ctx.font = 'bold 13px "Inter", "PingFang SC", sans-serif';
-            ctx.fillStyle = '#1a587b';
-            ctx.fillText(`${school.score2025}分`, canvas.width - 80, yPos + 12);
-            
-            // 区域和性质
-            ctx.font = '11px "Inter", "PingFang SC", sans-serif';
-            ctx.fillStyle = '#446688';
-            ctx.fillText(`${school.area} · ${school.nature} · 梯度${school.gradient}`, 30, yPos + 38);
-            
-            // 高考成绩简写
-            if (school.gaokao && school.gaokao.rate) {
-                ctx.font = '10px "Inter", "PingFang SC", sans-serif';
-                ctx.fillStyle = '#e67e22';
-                ctx.fillText(`特控率 ${school.gaokao.rate}`, 30, yPos + 58);
-            }
-            
-            yPos += 85;
-        });
-        
-        // 绘制底部二维码区域
-        const footerY = Math.min(canvas.height - 90, yPos + 10);
-        
-        ctx.fillStyle = '#e6effa';
-        ctx.fillRect(20, footerY, canvas.width - 40, 80);
-        
-        // 生成二维码图片（使用在线API）
-        const pageUrl = 'https://yourusername.github.io/gz-zhongkao-assistant'; // 请替换为您的真实网址
-        const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=70x70&margin=5&data=${encodeURIComponent(pageUrl)}`;
-        
-        // 由于无法在Canvas中同步加载网络图片，这里先用文字代替二维码
-        // 但在实际运行时，可以通过Image对象异步加载
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(30, footerY + 5, 70, 70);
-        ctx.strokeStyle = '#1a3a5e';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(30, footerY + 5, 70, 70);
-        
-        ctx.font = 'bold 12px "Inter", "PingFang SC", sans-serif';
-        ctx.fillStyle = '#1a3a5e';
-        ctx.textAlign = 'left';
-        ctx.fillText('扫码访问', 110, footerY + 25);
-        ctx.fillText('广州中考助手', 110, footerY + 45);
-        
-        ctx.font = '9px "Inter", sans-serif';
-        ctx.fillStyle = '#5f7d9c';
-        ctx.fillText(pageUrl.replace('https://', ''), 110, footerY + 65);
-        
-        // 添加日期
-        const today = new Date();
-        const dateStr = `${today.getFullYear()}年${today.getMonth()+1}月${today.getDate()}日`;
-        ctx.font = '9px "Inter", sans-serif';
-        ctx.fillStyle = '#7b8ea6';
-        ctx.textAlign = 'right';
-        ctx.fillText(dateStr, canvas.width - 25, footerY + 75);
-        
-        return canvas.toDataURL('image/png');
-    }
-
-    // 显示海报预览
-    async function showPosterPreview() {
-        if (currentRecommendations.length === 0) {
-            alert('暂无推荐学校，请先完成测试');
-            return;
-        }
-
-        try {
-            shareMockBtn.disabled = true;
-            shareMockBtn.innerText = '生成中...';
-            
-            const imageUrl = generatePoster();
-            if (imageUrl) {
-                posterImage.src = imageUrl;
-                posterModal.style.display = 'flex';
-            }
-            
-            shareMockBtn.disabled = false;
-            shareMockBtn.innerText = '📲 生成报告海报';
-        } catch (error) {
-            console.error('生成海报失败:', error);
-            alert('生成海报失败，请重试');
-            shareMockBtn.disabled = false;
-            shareMockBtn.innerText = '📲 生成报告海报';
-        }
-    }
-
-    // 保存图片到本地
-    function savePoster() {
-        const imageUrl = posterImage.src;
-        if (!imageUrl || imageUrl === '') {
-            alert('没有可保存的图片');
-            return;
-        }
-        
-        const link = document.createElement('a');
-        link.download = `广州中考报告_${new Date().getTime()}.png`;
-        link.href = imageUrl;
-        link.click();
-    }
-
-    // ---------- 事件绑定 ----------
-    nextBtn.addEventListener('click', () => {
-        if (currentStep < questions.length - 1) {
-            if (answers[currentStep]) {
-                currentStep++;
-                renderStep();
-            } else {
-                alert('请先选择一个选项');
-            }
-        } else {
-            if (answers[currentStep]) {
-                showResult();
-            } else {
-                alert('请先完成最后一题');
-            }
-        }
-    });
-
-    prevBtn.addEventListener('click', () => {
-        if (currentStep > 0) {
-            currentStep--;
-            renderStep();
-        }
-    });
-
-    restartBtn.addEventListener('click', restartQuiz);
-    restartFromResultBtn.addEventListener('click', restartQuiz);
-
-    schoolLibBtn.addEventListener('click', () => {
-        quizArea.classList.add('hidden');
-        resultArea.classList.add('hidden');
-        schoolLibArea.classList.remove('hidden');
-        currentTag = 'all';
-        renderTags();
-        renderSchoolLib();
-    });
-
-    backToQuizBtn.addEventListener('click', () => {
-        schoolLibArea.classList.add('hidden');
-        quizArea.classList.remove('hidden');
-        renderStep();
-    });
-
-    schoolSearch.addEventListener('input', (e) => {
-        renderSchoolLib(e.target.value);
-    });
-
-    shareMockBtn.addEventListener('click', showPosterPreview);
-    
-    closePosterBtn.addEventListener('click', () => {
-        posterModal.style.display = 'none';
-    });
-    
-    savePosterBtn.addEventListener('click', savePoster);
-    
-    window.addEventListener('click', (e) => {
-        if (e.target === posterModal) {
-            posterModal.style.display = 'none';
-        }
-        if (e.target === qrModal) {
-            qrModal.style.display = 'none';
-        }
-    });
-
-    // 初始化
-    renderStep();
-})();
+(function(){var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');if(!t||!l)return;t.addEventListener('click',function(){l.classList.toggle('open');});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open');});});})();
+(function(){var items=document.querySelectorAll('.reveal');if(!items.length)return;if(!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('is-visible');});return;}var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -60px 0px'});items.forEach(function(el,i){el.style.transitionDelay=(i%4)*70+'ms';io.observe(el);});})();
 </script>
 </body>
 </html>
