@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact · IGZZK</title>
+<style>
+/* 复用首页全部 CSS */
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="logo"><span class="logo-mark">IG</span><span>IGZZK<span style="color:var(--text-faint);font-weight:500;">·Knowledge</span></span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="editorial.html">Editorial</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container" style="max-width:600px;">
+    <span class="eyebrow">Contact</span>
+    <h1 class="section-title">Get in touch</h1>
+    <p class="section-desc" style="margin-bottom:36px;">Found an error? Want to suggest a topic? Need to correct something we published? Send us a message.</p>
+    <form class="news-form" style="max-width:100%;" onsubmit="event.preventDefault();this.reset();alert('Thanks! We\'ll get back to you within 2 business days.');">
+      <input type="text" placeholder="Your name" required style="flex:1 1 100%;margin-bottom:12px;">
+      <input type="email" placeholder="Your email address" required style="flex:1 1 100%;margin-bottom:12px;">
+      <textarea placeholder="Your message" required style="flex:1 1 100%;padding:14px 20px;border-radius:var(--radius);border:1px solid var(--line);background:#fff;color:var(--text);min-height:140px;margin-bottom:12px;resize:vertical;outline:none;"></textarea>
+      <button type="submit" class="btn btn--primary btn--lg" style="width:100%;">Send message</button>
+    </form>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:1px solid var(--line);padding-top:28px;">
+      <span>© 2026 IGZZK.com · All rights reserved</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');if(!t||!l)return;t.addEventListener('click',function(){l.classList.toggle('open');});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open');});});})();
+</script>
+</body>
+</html>
