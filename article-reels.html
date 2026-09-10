@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How the Instagram Reels Algorithm Works in 2026 · IGZZK</title>
+<meta name="description" content="Watch time, DM sends, and originality. How the Reels algorithm ranks content in 2026, and how to structure your Reels to get distributed to non-followers.">
+<style>
+:root{
+  --bg:#ffffff;--bg-soft:#f7f8fa;--bg-dark:#12141a;
+  --text:#1f2430;--text-soft:#5b6473;--text-faint:#8b94a3;
+  --line:#e8ebf0;--brand:#4f46e5;--brand-soft:#eef0ff;--brand-dark:#3730a3;
+  --radius:14px;--radius-sm:10px;
+  --shadow-sm:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06);
+  --shadow-md:0 4px 12px rgba(16,24,40,.06),0 2px 4px rgba(16,24,40,.04);
+  --shadow-lg:0 12px 32px rgba(16,24,40,.08);
+  --maxw:1160px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.75;font-size:16px;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-style:none;}button,input{font-family:inherit;font-size:inherit;}
+.container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+.section{padding:96px 0;}.section--soft{background:var(--bg-soft);}.section--tight{padding:72px 0;}
+.eyebrow{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:16px;}
+.section-head{max-width:660px;margin-bottom:56px;}.section-head--center{margin-left:auto;margin-right:auto;text-align:center;}
+.section-title{font-size:clamp(26px,3.4vw,38px);font-weight:700;line-height:1.3;letter-spacing:-.02em;color:var(--text);margin-bottom:16px;}
+.section-desc{font-size:17px;color:var(--text-soft);line-height:1.8;}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease);}.reveal.is-visible{opacity:1;transform:none;}
+.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line);}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;letter-spacing:-.02em;}
+.logo-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 55%,#db2777 100%);display:grid;place-items:center;color:#fff;font-size:14px;font-weight:800;letter-spacing:-.04em;box-shadow:0 2px 8px rgba(79,70,229,.28);}
+.nav-links{display:flex;align-items:center;gap:36px;font-size:15px;font-weight:500;color:var(--text-soft);}
+.nav-links a{transition:color .2s var(--ease);position:relative;}.nav-links a:hover{color:var(--text);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 22px;border-radius:999px;font-size:15px;font-weight:600;border:none;cursor:pointer;transition:all .22s var(--ease);white-space:nowrap;}
+.btn--primary{background:var(--brand);color:#fff;box-shadow:0 2px 10px rgba(79,70,229,.24);}
+.btn--primary:hover{background:var(--brand-dark);transform:translateY(-1px);box-shadow:0 6px 18px rgba(79,70,229,.3);}
+.btn--ghost{background:transparent;color:var(--text);border:1px solid var(--line);}
+.btn--ghost:hover{border-color:#c9cfda;background:#fff;}
+.btn--lg{padding:14px 30px;font-size:16px;}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:.25s var(--ease);}
+.nav-toggle span+span{margin-top:5px;}
+.post-tag{display:inline-block;font-size:12.5px;font-weight:600;color:var(--brand);background:var(--brand-soft);padding:3px 11px;border-radius:999px;margin-bottom:14px;align-self:flex-start;}
+.post-meta{font-size:13.5px;color:var(--text-faint);display:flex;align-items:center;gap:10px;}
+.post-meta .sep{width:3px;height:3px;border-radius:50%;background:#cdd3dd;}
+.post-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:all .28s var(--ease);}
+.post-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent;}
+.post-body{padding:26px 26px 28px;display:flex;flex-direction:column;flex:1;}
+.post-card h3{font-size:18px;font-weight:700;line-height:1.5;letter-spacing:-.015em;margin-bottom:10px;}
+.post-card h3 a{transition:color .2s var(--ease);}
+.post-card h3 a:hover{color:var(--brand);}
+.post-card p{font-size:14.8px;color:var(--text-soft);line-height:1.75;margin-bottom:20px;flex:1;}
+.grid-posts{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;}
+.grid-cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;}
+.cat-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:32px 28px;transition:all .28s var(--ease);position:relative;overflow:hidden;display:block;}
+.cat-card::after{content:"";position:absolute;inset:0;border-radius:var(--radius);box-shadow:var(--shadow-lg);opacity:0;transition:opacity .28s var(--ease);pointer-events:none;}
+.cat-card:hover{transform:translateY(-4px);border-color:transparent;}
+.cat-card:hover::after{opacity:1;}
+.cat-card h3{font-size:18.5px;font-weight:700;letter-spacing:-.015em;margin-bottom:10px;}
+.cat-card p{font-size:14.8px;color:var(--text-soft);line-height:1.75;margin-bottom:18px;}
+.cat-link{font-size:14.5px;font-weight:600;color:var(--brand);display:inline-flex;align-items:center;gap:6px;}
+.cat-link svg{transition:transform .22s var(--ease);}
+.cat-card:hover .cat-link svg{transform:translateX(4px);}
+.newsletter{background:var(--bg-dark);color:#fff;border-radius:22px;padding:64px 56px;text-align:center;position:relative;overflow:hidden;}
+.newsletter::before{content:"";position:absolute;top:-140px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,rgba(124,58,237,.4),transparent 68%);pointer-events:none;}
+.newsletter::after{content:"";position:absolute;bottom:-180px;left:-120px;width:420px;height:420px;background:radial-gradient(circle,rgba(79,70,229,.32),transparent 68%);pointer-events:none;}
+.newsletter>*{position:relative;}
+.newsletter h2{font-size:clamp(24px,3.2vw,34px);font-weight:700;letter-spacing:-.025em;margin-bottom:14px;line-height:1.3;}
+.newsletter p{color:#a7aec0;font-size:16.5px;max-width:520px;margin:0 auto 32px;line-height:1.8;}
+.news-form{display:flex;gap:10px;max-width:480px;margin:0 auto;flex-wrap:wrap;}
+.news-form input{flex:1 1 240px;padding:14px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;outline:none;transition:all .22s var(--ease);}
+.news-form input::placeholder{color:#7c8496;}
+.news-form input:focus{border-color:rgba(124,58,237,.7);background:rgba(255,255,255,.1);}
+.news-note{font-size:13px;color:#6f7789;margin-top:18px;}
+.site-footer{border-top:1px solid var(--line);padding:64px 0 40px;margin-top:96px;}
+.footer-grid{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:48px;margin-bottom:52px;}
+.footer-brand p{font-size:14.6px;color:var(--text-soft);line-height:1.8;margin-top:18px;max-width:320px;}
+.footer-col h5{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:20px;}
+.footer-col ul{display:flex;flex-direction:column;gap:13px;}
+.footer-col a{font-size:14.6px;color:var(--text-soft);transition:color .2s var(--ease);}
+.footer-col a:hover{color:var(--brand);}
+.footer-bottom{border-top:1px solid var(--line);padding-top:28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:13.6px;color:var(--text-faint);}
+.footer-bottom .disclaimer{max-width:620px;line-height:1.7;font-size:12.8px;}
+.article-content{font-size:17px;line-height:1.85;color:var(--text-soft);}
+.article-content p{margin-bottom:24px;}
+.article-content h2{font-size:24px;font-weight:700;color:var(--text);margin:44px 0 16px;letter-spacing:-.02em;}
+.article-content h3{font-size:19px;font-weight:700;color:var(--text);margin:32px 0 12px;letter-spacing:-.01em;}
+.article-content ul{margin-bottom:24px;padding-left:24px;list-style:disc;}
+.article-content li{margin-bottom:10px;padding-left:4px;}
+.article-content strong{color:var(--text);font-weight:600;}
+.article-content a{color:var(--brand);font-weight:600;}
+.article-content a:hover{text-decoration:underline;}
+.callout{background:var(--brand-soft);border-radius:var(--radius);padding:28px 32px;margin:40px 0;}
+.callout p{font-size:15.5px;color:var(--brand-dark);font-weight:600;margin-bottom:8px;}
+.callout p:last-child{margin-bottom:0;font-weight:400;line-height:1.8;}
+@media(max-width:960px){.footer-grid{grid-template-columns:1fr 1fr;gap:40px;}.footer-brand{grid-column:1/-1;}}
+@media(max-width:768px){
+  .section{padding:72px 0;}.section--tight{padding:56px 0;}
+  .nav-links{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;border-bottom:1px solid var(--line);padding:8px 24px 20px;box-shadow:var(--shadow-md);}
+  .nav-links.open{display:flex;}.nav-links a{padding:13px 0;border-bottom:1px solid var(--line);}.nav-links .btn{margin-top:14px;}
+  .nav-toggle{display:block;}
+  .newsletter{padding:48px 26px;border-radius:18px;}.news-form{flex-direction:column;}.news-form .btn{width:100%;}
+  .footer-grid{grid-template-columns:1fr;gap:36px;}.footer-bottom{flex-direction:column;align-items:flex-start;}
+}
+@media(max-width:420px){.container{padding:0 18px;}.cat-card{padding:26px 22px;}.post-body{padding:22px 20px 24px;}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="logo"><span class="logo-mark">IG</span><span>IGZZK<span style="color:var(--text-faint);font-weight:500;">·Knowledge</span></span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="algorithm-decoded.html">Algorithm</a></li>
+        <li><a href="how-to-post.html">How to Post</a></li>
+        <li><a href="business-tools.html">Business Tools</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<article class="section" style="padding:56px 0 0;">
+  <div class="container" style="max-width:760px;">
+    <p style="font-size:14px;color:var(--text-faint);margin-bottom:28px;">
+      <a href="index.html" style="color:var(--brand);">Home</a> /
+      <a href="algorithm-decoded.html" style="color:var(--brand);">Algorithm Decoded</a> /
+      This article
+    </p>
+    <span class="post-tag" style="margin-bottom:18px;display:inline-block;">Reels</span>
+    <h1 style="font-size:clamp(28px,4.4vw,42px);font-weight:800;line-height:1.25;letter-spacing:-.03em;margin-bottom:20px;">How the Reels algorithm actually works in 2026</h1>
+    <div class="post-meta" style="margin-bottom:40px;font-size:14px;">
+      <span>10 min read</span><span class="sep"></span><span>Updated September 2026</span>
+    </div>
+  </div>
+</article>
+
+<article class="section" style="padding:0 0 96px;">
+  <div class="container" style="max-width:760px;">
+    <div class="article-content">
+
+      <p>Reels is the most open surface on Instagram. Unlike Feed, where you primarily reach people who already follow you, Reels gets distributed to people who have never heard of you. The algorithm prioritizes <strong>watch time and replays over follower count</strong>, which means smaller accounts can absolutely compete[reference:0].</p>
+
+      <p>But the rules have shifted since 2025. If you're still working from older playbooks, some of what you think you know might be working against you. Here's exactly what the Reels algorithm rewards in 2026.</p>
+
+      <h2>The three signals that carry the most weight</h2>
+
+      <p>Adam Mosseri confirmed the three signals that carry the most weight for Reels distribution[reference:1]:</p>
+
+      <ul>
+        <li><strong>Watch time / completion rate</strong> — how long someone actually watches your Reel. Instagram now ranks on total watch time plus replay rate, not just the old 3-second view count. A 15-second Reel that gets watched all the way through twice performs better than a 60-second Reel that gets abandoned at 10 seconds[reference:2].</li>
+        <li><strong>DM sends</strong> — whether someone shares your Reel via direct message. Since 2025, the DM share has become the strongest signal for non-follower reach. It matters more than likes[reference:3].</li>
+        <li><strong>Likes per reach</strong> — still counted, but now the weakest of the three major signals. Chasing likes is optimising for the wrong metric.</li>
+      </ul>
+
+      <h2>The cold-start testing phase</h2>
+
+      <p>When you post a Reel, Instagram doesn't immediately show it to everyone. It pushes your Reel to a small test pool first, watches the watch-time and send signals, then expands distribution if the early pool reacts well[reference:4]. This means the first 30–60 minutes after posting are critical. If your early viewers watch to the end and share it, the algorithm opens the floodgates. If they scroll past, distribution stalls.</p>
+
+      <h2>The first 3 seconds decide everything</h2>
+
+      <p>For Reels, the first three seconds are the whole game[reference:5]. Instagram's algorithm prioritizes entertaining, original content with strong hooks in the first 3 seconds[reference:6]. If you don't hold attention there, the algorithm stops testing your Reel with new audiences.</p>
+
+      <p>Value-first hooks, curiosity hooks, visual and emotional hooks all consistently hold viewers past the critical 3-second threshold[reference:7]. The hook doesn't need to be flashy — it needs to make a promise the viewer wants to see fulfilled.</p>
+
+      <h2>How long should your Reels be?</h2>
+
+      <p>Reels can be up to 20 minutes long, but Reels over 3 minutes won't be recommended to new audiences by the algorithm[reference:8]. For maximum discovery, keep Reels under 3 minutes[reference:9]. The sweet spot for most content is <strong>15–45 seconds</strong>. Short loops (7–20 seconds) generate the fastest replay cycles, while 20–45 second Reels work well for retention-driven content[reference:10].</p>
+
+      <p>According to Adam Mosseri, when it comes to Reels, the shorter the better.</p>
+
+      <h2>Original audio vs. trending sounds</h2>
+
+      <p>Instagram's ranking signals in 2026 include original audio[reference:12]. The algorithm recognises original audio that gets saves and rewards it. Trending audio still works — especially when used within 48 hours of its appearance — but Reels that rely entirely on someone else's sound are less likely to be pushed to new audiences[reference:13].</p>
+
+      <p>If you use trending audio, pair it with original content. If you use original audio, make sure the content is strong enough to stand on its own.</p>
+
+      <h2>Originality matters more than ever</h2>
+
+      <p>Instagram's 2026 Reels algorithm prioritizes originality. Watermarked reposts, low-effort edits, and screenshots of other people's posts all get less distribution[reference:14]. The system uses visual fingerprinting to detect content that shares 70% or more of another creator's original visuals or audio. Accounts posting near-duplicates face penalties lasting anywhere from 24 hours to 30 days[reference:15].</p>
+
+      <p>Original content doesn't mean you can't use third-party material. Meme creators who add humour, social commentary, or a relatable take by incorporating unique text, creative edits, or voiceover are producing something original. The key is that you've added something that genuinely enhances it.</p>
+
+      <div class="callout">
+        <p>What to do with this</p>
+        <p>Optimise for watch time and DM sends, not likes. Keep Reels under 3 minutes, ideally 15–45 seconds. Front-load the hook in the first 3 seconds. Use original audio when possible. Post original content consistently. And check your Insights to see which Reels are earning sends — those are the ones the algorithm is rewarding.</p>
+      </div>
+
+      <p>Next: read <a href="article-algorithm-2026.html">the complete 2026 algorithm breakdown</a>, or learn <a href="article-posting.html">how to post each format correctly</a>.</p>
+
+    </div>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><span class="logo-mark">IG</span><span>IGZZK·Knowledge</span></a>
+        <p>Instagram official docs, translated into plain English.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Knowledge Base</h5>
+        <ul>
+          <li><a href="algorithm-decoded.html">Algorithm Decoded</a></li>
+          <li><a href="how-to-post.html">How to Post</a></li>
+          <li><a href="business-tools.html">Business Tools</a></li>
+          <li><a href="pitfalls.html">Pitfalls to Avoid</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Popular</h5>
+        <ul>
+          <li><a href="article-algorithm-2026.html">2026 algorithm guide</a></li>
+          <li><a href="article-reels.html">Reels algorithm</a></li>
+          <li><a href="article-recovery.html">Account recovery</a></li>
+          <li><a href="article-features.html">2026 feature roundup</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>About</h5>
+        <ul>
+          <li><a href="about.html">About us</a></li>
+          <li><a href="editorial.html">Editorial policy</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy.html">Privacy policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 IGZZK.com · All rights reserved</span>
+      <p class="disclaimer">Not affiliated with Meta Platforms, Inc. or Instagram.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');if(!t||!l)return;t.addEventListener('click',function(){l.classList.toggle('open');});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open');});});})();
+(function(){var items=document.querySelectorAll('.reveal');if(!items.length)return;if(!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('is-visible');});return;}var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -60px 0px'});items.forEach(function(el,i){el.style.transitionDelay=(i%4)*70+'ms';io.observe(el);});})();
+</script>
+</body>
+</html>
