@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algorithm Decoded · IGZZK</title>
+<meta name="description" content="Instagram's algorithm in plain English. Feed, Reels, Stories, and Explore ranking signals explained.">
+<style>
+/* 复用首页所有样式，此处省略重复 CSS，与 index.html 完全一致 */
+/* [请将 index.html 中 <style> 标签内的全部 CSS 原样复制到此] */
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="logo"><span class="logo-mark">IG</span><span>IGZZK<span style="color:var(--text-faint);font-weight:500;">·Knowledge</span></span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="how-to-post.html">How to Post</a></li>
+        <li><a href="business-tools.html">Business Tools</a></li>
+        <li><a href="pitfalls.html">Pitfalls</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<!-- Breadcrumb -->
+<section class="section" style="padding:48px 0 0;">
+  <div class="container">
+    <p style="font-size:14px;color:var(--text-faint);"><a href="index.html" style="color:var(--brand);">Home</a> / Algorithm Decoded</p>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Knowledge Base</span>
+      <h1 class="section-title">Algorithm Decoded</h1>
+      <p class="section-desc">Instagram doesn't run on one algorithm. Feed, Reels, Stories, and Explore each use distinct AI systems with different ranking signals. Here's every signal that matters, explained in plain English.</p>
+    </div>
+
+    <div class="grid-posts">
+      <article class="post-card reveal">
+        <div class="post-body">
+          <span class="post-tag">Algorithm</span>
+          <h3><a href="article-algorithm-2026.html">Instagram's 2026 algorithm, explained in plain English</a></h3>
+          <p>Feed, Reels, and Stories each have their own ranking logic. Understand "sends" and "watch time" and your content gets seen.</p>
+          <div class="post-meta"><span>8 min read</span><span class="sep"></span><span>Beginner</span></div>
+        </div>
+      </article>
+      <article class="post-card reveal">
+        <div class="post-body">
+          <span class="post-tag">Reels</span>
+          <h3><a href="article-reels.html">How the Reels algorithm actually works in 2026</a></h3>
+          <p>Watch time, DM sends, and originality signals. Why smaller accounts can compete and how to structure your first 3 seconds.</p>
+          <div class="post-meta"><span>10 min read</span><span class="sep"></span><span>Intermediate</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:1px solid var(--line);padding-top:28px;">
+      <span>© 2026 IGZZK.com · All rights reserved</span>
+      <p class="disclaimer">Not affiliated with Meta Platforms, Inc. or Instagram.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');if(!t||!l)return;t.addEventListener('click',function(){l.classList.toggle('open');});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open');});});})();
+(function(){var items=document.querySelectorAll('.reveal');if(!items.length)return;if(!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('is-visible');});return;}var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -60px 0px'});items.forEach(function(el,i){el.style.transitionDelay=(i%4)*70+'ms';io.observe(el);});})();
+</script>
+</body>
+</html>
