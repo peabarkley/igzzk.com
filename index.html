@@ -323,10 +323,10 @@ img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-
     <div class="newsletter reveal">
       <h2>Instagram changed something?<br>We'll tell you first.</h2>
       <p>Every time the platform tweaks its rules or launches a new feature, we send you a plain-English breakdown. No spam, unsubscribe anytime.</p>
-      <form class="news-form" onsubmit="event.preventDefault();this.reset();alert('Subscribed! We\'ll send the next update to your inbox.');">
-        <input type="email" placeholder="Enter your email address" required>
-        <button type="submit" class="btn btn--primary">Subscribe free</button>
-      </form>
+      <form class="news-form" action="https://formspree.io/f/mqpapnze" method="POST">
+  <input type="email" name="email" placeholder="Enter your email address" required>
+  <button type="submit" class="btn btn--primary">Subscribe free</button>
+</form>
       <p class="news-note">We respect your privacy. We will never share your email.</p>
     </div>
   </div>
