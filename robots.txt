@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://igzzk.com/sitemap.xml
+Sitemap: https://www.igzzk.com/sitemap.xml
