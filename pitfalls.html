@@ -127,4 +127,79 @@
         <span class="cat-link">Explore section <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
       <a href="https://www.igzzk.com/how-to-post.html" class="cat-card reveal">
-        <h3>How to Post</h3
+        <h3>How to Post</h3>
+        <p>Feed, Reels, Stories, and Instants — every format with the specs and best practices.</p>
+        <span class="cat-link">Explore section <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="https://www.igzzk.com/business-tools.html" class="cat-card reveal">
+        <h3>Business Tools</h3>
+        <p>Insights, Promote, Shopping, Meta Business Suite. Practical walkthroughs.</p>
+        <span class="cat-link">Explore section <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="newsletter reveal">
+      <h2>Instagram changed something?<br>We'll tell you first.</h2>
+      <p>Every time the platform tweaks its rules or launches a new feature, we send you a plain-English breakdown. No spam, unsubscribe anytime.</p>
+      <form class="news-form" action="https://formspree.io/f/mqpapnze" method="POST">
+        <input type="email" name="email" placeholder="Enter your email address" required>
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+        <button type="submit" class="btn btn--primary">Subscribe free</button>
+      </form>
+      <p class="news-note">We respect your privacy. We will never share your email.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="https://www.igzzk.com/" class="logo"><span class="logo-mark">IG</span><span>IGZZK·Knowledge</span></a>
+        <p>Instagram official docs, translated into plain English. From zero to confident.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Knowledge Base</h5>
+        <ul>
+          <li><a href="https://www.igzzk.com/algorithm-decoded.html">Algorithm Decoded</a></li>
+          <li><a href="https://www.igzzk.com/how-to-post.html">How to Post</a></li>
+          <li><a href="https://www.igzzk.com/business-tools.html">Business Tools</a></li>
+          <li><a href="https://www.igzzk.com/pitfalls.html">Pitfalls to Avoid</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Popular</h5>
+        <ul>
+          <li><a href="https://www.igzzk.com/article-algorithm-2026.html">2026 algorithm guide</a></li>
+          <li><a href="https://www.igzzk.com/article-reels.html">Reels algorithm</a></li>
+          <li><a href="https://www.igzzk.com/article-recovery.html">Account recovery</a></li>
+          <li><a href="https://www.igzzk.com/article-features.html">2026 feature roundup</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>About</h5>
+        <ul>
+          <li><a href="https://www.igzzk.com/about.html">About us</a></li>
+          <li><a href="https://www.igzzk.com/editorial.html">Editorial policy</a></li>
+          <li><a href="https://www.igzzk.com/contact.html">Contact</a></li>
+          <li><a href="https://www.igzzk.com/privacy.html">Privacy policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 IGZZK.com · All rights reserved</span>
+      <p class="disclaimer">Not affiliated with Meta Platforms, Inc. or Instagram. "Instagram" is a trademark of Meta Platforms, Inc.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');if(!t||!l)return;t.addEventListener('click',function(){l.classList.toggle('open');});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open');});});})();
+(function(){var items=document.querySelectorAll('.reveal');if(!items.length)return;if(!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('is-visible');});return;}var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -60px 0px'});items.forEach(function(el,i){el.style.transitionDelay=(i%4)*70+'ms';io.observe(el);});})();
+</script>
+</body>
+</html>
