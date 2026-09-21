@@ -1,184 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PMS3KBVT39"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-PMS3KBVT39');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IGZZK · Instagram Knowledge Base — Official docs, plain English</title>
 <meta name="description" content="We translate Instagram's official help docs into plain English. Algorithm, content, business tools, pitfalls — everything a beginner needs.">
-<link rel="canonical" href="https://www.igzzk.com/PAGE_PATH">
-  <style>
-/* ===== CSS Variables ===== */
-:root{
-  --bg:#ffffff;--bg-soft:#f7f8fa;--bg-dark:#12141a;
-  --text:#1f2430;--text-soft:#5b6473;--text-faint:#8b94a3;
-  --line:#e8ebf0;--brand:#4f46e5;--brand-soft:#eef0ff;--brand-dark:#3730a3;
-  --radius:14px;--radius-sm:10px;
-  --shadow-sm:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06);
-  --shadow-md:0 4px 12px rgba(16,24,40,.06),0 2px 4px rgba(16,24,40,.04);
-  --shadow-lg:0 12px 32px rgba(16,24,40,.08);
-  --maxw:1160px;
-  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  --ease:cubic-bezier(.4,0,.2,1);
+<link rel="canonical" href="https://www.igzzk.com/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.igzzk.com/">
+<meta property="og:title" content="IGZZK · Instagram official docs, translated into plain English">
+<meta property="og:description" content="Algorithm, posting, business tools, account recovery — explained like a human would explain it.">
+<meta property="og:image" content="https://www.igzzk.com/og-image.png">
+<meta property="og:site_name" content="IGZZK">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="IGZZK · Instagram official docs, translated into plain English">
+<meta name="twitter:description" content="Algorithm, posting, business tools, account recovery — explained like a human would explain it.">
+<meta name="twitter:image" content="https://www.igzzk.com/og-image.png">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "IGZZK",
+  "url": "https://www.igzzk.com/",
+  "description": "Instagram official docs, translated into plain English.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "IGZZK",
+    "url": "https://www.igzzk.com/"
+  }
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
-body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.75;font-size:16px;letter-spacing:.01em;-webkit-font-smoothing:antialiased;}
-img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-style:none;}button,input{font-family:inherit;font-size:inherit;}
-.container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px;}
-.section{padding:96px 0;}.section--soft{background:var(--bg-soft);}.section--tight{padding:72px 0;}
-.eyebrow{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:16px;}
-.section-head{max-width:660px;margin-bottom:56px;}.section-head--center{margin-left:auto;margin-right:auto;text-align:center;}
-.section-title{font-size:clamp(26px,3.4vw,38px);font-weight:700;line-height:1.3;letter-spacing:-.02em;color:var(--text);margin-bottom:16px;}
-.section-desc{font-size:17px;color:var(--text-soft);line-height:1.8;}
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease);}.reveal.is-visible{opacity:1;transform:none;}
-/* Header */
-.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line);}
-.nav{display:flex;align-items:center;justify-content:space-between;height:72px;}
-.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;letter-spacing:-.02em;}
-.logo-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 55%,#db2777 100%);display:grid;place-items:center;color:#fff;font-size:14px;font-weight:800;letter-spacing:-.04em;box-shadow:0 2px 8px rgba(79,70,229,.28);}
-.nav-links{display:flex;align-items:center;gap:36px;font-size:15px;font-weight:500;color:var(--text-soft);}
-.nav-links a{transition:color .2s var(--ease);position:relative;}.nav-links a:hover{color:var(--text);}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 22px;border-radius:999px;font-size:15px;font-weight:600;border:none;cursor:pointer;transition:all .22s var(--ease);white-space:nowrap;}
-.btn--primary{background:var(--brand);color:#fff;box-shadow:0 2px 10px rgba(79,70,229,.24);}
-.btn--primary:hover{background:var(--brand-dark);transform:translateY(-1px);box-shadow:0 6px 18px rgba(79,70,229,.3);}
-.btn--ghost{background:transparent;color:var(--text);border:1px solid var(--line);}
-.btn--ghost:hover{border-color:#c9cfda;background:#fff;}
-.btn--lg{padding:14px 30px;font-size:16px;}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;}
-.nav-toggle span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:.25s var(--ease);}
-.nav-toggle span+span{margin-top:5px;}
-/* Hero */
-.hero{padding:110px 0 96px;text-align:center;position:relative;overflow:hidden;}
-.hero::before{content:"";position:absolute;top:-260px;left:50%;transform:translateX(-50%);width:900px;height:620px;background:radial-gradient(circle at 50% 50%,rgba(79,70,229,.10),transparent 68%);pointer-events:none;}
-.hero .container{position:relative;}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:var(--brand-soft);color:var(--brand-dark);border-radius:999px;font-size:13.5px;font-weight:600;margin-bottom:28px;}
-.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--brand);animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
-.hero h1{font-size:clamp(32px,5.6vw,58px);font-weight:800;line-height:1.18;letter-spacing:-.035em;margin-bottom:24px;max-width:880px;margin-left:auto;margin-right:auto;}
-.hero h1 em{font-style:normal;background:linear-gradient(120deg,#4f46e5,#7c3aed 45%,#db2777);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.hero p{font-size:clamp(16px,1.9vw,19px);color:var(--text-soft);max-width:620px;margin:0 auto 40px;line-height:1.85;}
-.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:64px;}
-.hero-stats{display:flex;justify-content:center;gap:0;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:40px;max-width:760px;margin:0 auto;}
-.stat{flex:1 1 160px;padding:0 20px;text-align:center;position:relative;}
-.stat+.stat::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:1px;background:var(--line);}
-.stat-num{font-size:30px;font-weight:800;letter-spacing:-.03em;color:var(--text);line-height:1.2;}
-.stat-num span{color:var(--brand);}
-.stat-label{font-size:13.5px;color:var(--text-faint);margin-top:6px;}
-/* Category Cards */
-.grid-cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;}
-.cat-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:32px 28px;transition:all .28s var(--ease);position:relative;overflow:hidden;display:block;}
-.cat-card::after{content:"";position:absolute;inset:0;border-radius:var(--radius);box-shadow:var(--shadow-lg);opacity:0;transition:opacity .28s var(--ease);pointer-events:none;}
-.cat-card:hover{transform:translateY(-4px);border-color:transparent;}
-.cat-card:hover::after{opacity:1;}
-.cat-card h3{font-size:18.5px;font-weight:700;letter-spacing:-.015em;margin-bottom:10px;}
-.cat-card p{font-size:14.8px;color:var(--text-soft);line-height:1.75;margin-bottom:18px;}
-.cat-link{font-size:14.5px;font-weight:600;color:var(--brand);display:inline-flex;align-items:center;gap:6px;}
-.cat-link svg{transition:transform .22s var(--ease);}
-.cat-card:hover .cat-link svg{transform:translateX(4px);}
-/* Post Cards */
-.grid-posts{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;}
-.post-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:all .28s var(--ease);}
-.post-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent;}
-.post-body{padding:26px 26px 28px;display:flex;flex-direction:column;flex:1;}
-.post-tag{display:inline-block;font-size:12.5px;font-weight:600;color:var(--brand);background:var(--brand-soft);padding:3px 11px;border-radius:999px;margin-bottom:14px;align-self:flex-start;}
-.post-card h3{font-size:18px;font-weight:700;line-height:1.5;letter-spacing:-.015em;margin-bottom:10px;}
-.post-card h3 a{transition:color .2s var(--ease);}
-.post-card h3 a:hover{color:var(--brand);}
-.post-card p{font-size:14.8px;color:var(--text-soft);line-height:1.75;margin-bottom:20px;flex:1;}
-.post-meta{font-size:13.5px;color:var(--text-faint);display:flex;align-items:center;gap:10px;}
-.post-meta .sep{width:3px;height:3px;border-radius:50%;background:#cdd3dd;}
-/* About */
-.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
-.about-list{display:flex;flex-direction:column;gap:26px;margin-top:32px;}
-.about-item{display:flex;gap:16px;align-items:flex-start;}
-.about-check{flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:13px;font-weight:800;margin-top:3px;}
-.about-item h4{font-size:16.5px;font-weight:700;margin-bottom:5px;letter-spacing:-.01em;}
-.about-item p{font-size:14.8px;color:var(--text-soft);line-height:1.75;}
-.translate-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-md);overflow:hidden;}
-.translate-head{display:flex;align-items:center;gap:8px;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--bg-soft);}
-.translate-head i{width:10px;height:10px;border-radius:50%;background:#e2e6ee;display:block;}
-.translate-head i:nth-child(1){background:#fca5a5;}.translate-head i:nth-child(2){background:#fcd34d;}.translate-head i:nth-child(3){background:#86efac;}
-.translate-head span{margin-left:10px;font-size:12.5px;color:var(--text-faint);font-weight:500;}
-.translate-body{padding:26px 24px;}.translate-row{margin-bottom:22px;}.translate-row:last-child{margin-bottom:0;}
-.translate-label{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px;}
-.translate-official{font-size:14.5px;color:var(--text-faint);line-height:1.7;padding-left:14px;border-left:2px solid var(--line);font-style:italic;}
-.translate-plain{display:flex;gap:10px;align-items:flex-start;margin-top:12px;padding:14px 16px;background:var(--brand-soft);border-radius:var(--radius-sm);font-size:14.8px;color:var(--brand-dark);font-weight:500;line-height:1.7;}
-.translate-plain .arrow{flex:0 0 auto;font-weight:800;}
-/* Newsletter */
-.newsletter{background:var(--bg-dark);color:#fff;border-radius:22px;padding:64px 56px;text-align:center;position:relative;overflow:hidden;}
-.newsletter::before{content:"";position:absolute;top:-140px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,rgba(124,58,237,.4),transparent 68%);pointer-events:none;}
-.newsletter::after{content:"";position:absolute;bottom:-180px;left:-120px;width:420px;height:420px;background:radial-gradient(circle,rgba(79,70,229,.32),transparent 68%);pointer-events:none;}
-.newsletter>*{position:relative;}
-.newsletter h2{font-size:clamp(24px,3.2vw,34px);font-weight:700;letter-spacing:-.025em;margin-bottom:14px;line-height:1.3;}
-.newsletter p{color:#a7aec0;font-size:16.5px;max-width:520px;margin:0 auto 32px;line-height:1.8;}
-.news-form{display:flex;gap:10px;max-width:480px;margin:0 auto;flex-wrap:wrap;}
-.news-form input{flex:1 1 240px;padding:14px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;outline:none;transition:all .22s var(--ease);}
-.news-form input::placeholder{color:#7c8496;}
-.news-form input:focus{border-color:rgba(124,58,237,.7);background:rgba(255,255,255,.1);}
-.news-note{font-size:13px;color:#6f7789;margin-top:18px;}
-/* Footer */
-.site-footer{border-top:1px solid var(--line);padding:64px 0 40px;margin-top:96px;}
-.footer-grid{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:48px;margin-bottom:52px;}
-.footer-brand p{font-size:14.6px;color:var(--text-soft);line-height:1.8;margin-top:18px;max-width:320px;}
-.footer-col h5{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:20px;}
-.footer-col ul{display:flex;flex-direction:column;gap:13px;}
-.footer-col a{font-size:14.6px;color:var(--text-soft);transition:color .2s var(--ease);}
-.footer-col a:hover{color:var(--brand);}
-.footer-bottom{border-top:1px solid var(--line);padding-top:28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:13.6px;color:var(--text-faint);}
-.footer-bottom .disclaimer{max-width:620px;line-height:1.7;font-size:12.8px;}
-/* Responsive */
-@media(max-width:960px){.about-wrap{grid-template-columns:1fr;gap:48px;}.footer-grid{grid-template-columns:1fr 1fr;gap:40px;}.footer-brand{grid-column:1/-1;}}
-@media(max-width:768px){
-  .section{padding:72px 0;}.section--tight{padding:56px 0;}.hero{padding:72px 0 64px;}
-  .nav-links{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;border-bottom:1px solid var(--line);padding:8px 24px 20px;box-shadow:var(--shadow-md);}
-  .nav-links.open{display:flex;}.nav-links a{padding:13px 0;border-bottom:1px solid var(--line);}.nav-links .btn{margin-top:14px;}
-  .nav-toggle{display:block;}
-  .hero-stats{gap:24px 0;}.stat{flex:1 1 40%;}.stat+.stat::before{display:none;}
-  .newsletter{padding:48px 26px;border-radius:18px;}.news-form{flex-direction:column;}.news-form .btn{width:100%;}
-  .footer-grid{grid-template-columns:1fr;gap:36px;}.footer-bottom{flex-direction:column;align-items:flex-start;}
-}
-@media(max-width:420px){.container{padding:0 18px;}.cat-card{padding:26px 22px;}.post-body{padding:22px 20px 24px;}}
-</style>
+</script>
+
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header class="site-header">
   <div class="container">
     <nav class="nav">
-      <a href="index.html" class="logo">
-        <span class="logo-mark">IG</span>
-        <span>IGZZK<span style="color:var(--text-faint);font-weight:500;">·Knowledge</span></span>
-      </a>
+      <a href="https://www.igzzk.com/" class="logo"><span class="logo-mark">IG</span><span>IGZZK<span style="color:var(--text-faint);font-weight:500;">·Knowledge</span></span></a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#categories">Knowledge Base</a></li>
-        <li><a href="#articles">Latest Articles</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="#subscribe">Subscribe</a></li>
-        <li><a href="#subscribe" class="btn btn--primary">Free Updates</a></li>
+        <li><a href="https://www.igzzk.com/#categories">Knowledge Base</a></li>
+        <li><a href="https://www.igzzk.com/#articles">Latest Articles</a></li>
+        <li><a href="https://www.igzzk.com/about.html">About</a></li>
+        <li><a href="https://www.igzzk.com/#subscribe">Subscribe</a></li>
+        <li><a href="https://www.igzzk.com/#subscribe" class="btn btn--primary">Free Updates</a></li>
       </ul>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     </nav>
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <div class="container">
     <div class="hero-badge"><span class="dot"></span>2026 Instagram updates now live</div>
     <h1>Instagram official docs,<br><em>translated into plain English</em></h1>
     <p>From setting up your account to creating content that gets seen. Algorithms, posting, business tools, account recovery — all explained like a human would explain it.</p>
     <div class="hero-actions">
-      <a href="#articles" class="btn btn--primary btn--lg">Start with the basics</a>
-      <a href="#categories" class="btn btn--ghost btn--lg">Browse the library</a>
+      <a href="https://www.igzzk.com/#articles" class="btn btn--primary btn--lg">Start with the basics</a>
+      <a href="https://www.igzzk.com/#categories" class="btn btn--ghost btn--lg">Browse the library</a>
     </div>
     <div class="hero-stats">
       <div class="stat"><div class="stat-num">4<span> core</span></div><div class="stat-label">knowledge sections</div></div>
@@ -188,7 +76,6 @@ img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-
   </div>
 </section>
 
-<!-- CATEGORIES -->
 <section class="section section--soft" id="categories">
   <div class="container">
     <div class="section-head section-head--center reveal">
@@ -197,22 +84,22 @@ img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-
       <p class="section-desc">Every article is sourced from Instagram's Help Center, Business Tools documentation, and official product announcements. We just make it readable.</p>
     </div>
     <div class="grid-cats">
-      <a href="algorithm-decoded.html" class="cat-card reveal">
+      <a href="https://www.igzzk.com/algorithm-decoded.html" class="cat-card reveal">
         <h3>Algorithm Decoded</h3>
         <p>Multiple AI systems decide what people see on Feed, Reels, and Stories. We break down every signal in plain words.</p>
         <span class="cat-link">Explore section <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
-      <a href="how-to-post.html" class="cat-card reveal">
+      <a href="https://www.igzzk.com/how-to-post.html" class="cat-card reveal">
         <h3>How to Post</h3>
         <p>Feed posts, Reels, Stories, and the new Instants feature. Step-by-step guides for every content format.</p>
         <span class="cat-link">Explore section <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
-      <a href="business-tools.html" class="cat-card reveal">
+      <a href="https://www.igzzk.com/business-tools.html" class="cat-card reveal">
         <h3>Business Tools</h3>
         <p>Business profiles, Insights, Promote, Shopping, Meta Business Suite. Practical walkthroughs for each tool.</p>
         <span class="cat-link">Explore section <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
-      <a href="pitfalls.html" class="cat-card reveal">
+      <a href="https://www.igzzk.com/pitfalls.html" class="cat-card reveal">
         <h3>Pitfalls to Avoid</h3>
         <p>Account recovery, fake official messages, original content rules. The stuff Instagram won't tell you directly.</p>
         <span class="cat-link">Explore section <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -221,19 +108,18 @@ img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-
   </div>
 </section>
 
-<!-- ARTICLES -->
 <section class="section" id="articles">
   <div class="container">
     <div class="section-head section-head--center reveal">
       <span class="eyebrow">Latest Articles</span>
-      <h2 class="section-title">Start with these five, save years of confusion</h2>
+      <h2 class="section-title">Start with these six, save years of confusion</h2>
       <p class="section-desc">New to Instagram? Read these first. They'll give you a complete mental model of how the platform actually works.</p>
     </div>
     <div class="grid-posts">
       <article class="post-card reveal">
         <div class="post-body">
           <span class="post-tag">Algorithm</span>
-          <h3><a href="article-algorithm-2026.html">Instagram's 2026 algorithm, explained in plain English</a></h3>
+          <h3><a href="https://www.igzzk.com/article-algorithm-2026.html">Instagram's 2026 algorithm, explained in plain English</a></h3>
           <p>Feed, Reels, and Stories each have their own ranking logic. Understand "sends" and "watch time" and your content gets seen.</p>
           <div class="post-meta"><span>8 min read</span><span class="sep"></span><span>Beginner</span></div>
         </div>
@@ -241,7 +127,7 @@ img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-
       <article class="post-card reveal">
         <div class="post-body">
           <span class="post-tag">Reels</span>
-          <h3><a href="article-reels.html">How the Reels algorithm actually works in 2026</a></h3>
+          <h3><a href="https://www.igzzk.com/article-reels.html">How the Reels algorithm actually works in 2026</a></h3>
           <p>Watch time, DM sends, and originality signals. Why smaller accounts can compete and how to structure your first 3 seconds.</p>
           <div class="post-meta"><span>10 min read</span><span class="sep"></span><span>Intermediate</span></div>
         </div>
@@ -249,7 +135,7 @@ img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-
       <article class="post-card reveal">
         <div class="post-body">
           <span class="post-tag">Content</span>
-          <h3><a href="article-posting.html">How to post: Feed, Reels, and Stories explained</a></h3>
+          <h3><a href="https://www.igzzk.com/article-posting.html">How to post: Feed, Reels, and Stories explained</a></h3>
           <p>Photos, short videos, ephemeral updates — when to use each format. And how to pick tags now that the limit is 5.</p>
           <div class="post-meta"><span>12 min read</span><span class="sep"></span><span>Walkthrough</span></div>
         </div>
@@ -257,7 +143,7 @@ img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-
       <article class="post-card reveal">
         <div class="post-body">
           <span class="post-tag">Business Tools</span>
-          <h3><a href="article-business.html">How to switch to a business account (and read your insights)</a></h3>
+          <h3><a href="https://www.igzzk.com/article-business.html">How to switch to a business account (and read your insights)</a></h3>
           <p>See who viewed your posts and where they're from. Then use that data to improve what you create next.</p>
           <div class="post-meta"><span>9 min read</span><span class="sep"></span><span>Intermediate</span></div>
         </div>
@@ -265,7 +151,7 @@ img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-
       <article class="post-card reveal">
         <div class="post-body">
           <span class="post-tag">Pitfalls</span>
-          <h3><a href="article-recovery.html">Account restricted or disabled? The only official appeal path</a></h3>
+          <h3><a href="https://www.igzzk.com/article-recovery.html">Account restricted or disabled? The only official appeal path</a></h3>
           <p>Instagram has no general support phone number, and the old email is gone. Here's the exact in-app route to take.</p>
           <div class="post-meta"><span>7 min read</span><span class="sep"></span><span>Urgent</span></div>
         </div>
@@ -273,7 +159,7 @@ img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-
       <article class="post-card reveal">
         <div class="post-body">
           <span class="post-tag">New Features</span>
-          <h3><a href="article-features.html">2026 update roundup: Instants, First Draft, original content</a></h3>
+          <h3><a href="https://www.igzzk.com/article-features.html">2026 update roundup: Instants, First Draft, original content</a></h3>
           <p>How the instant sharing feature works, how much time AI auto-editing saves, and the new rules for photos and carousels.</p>
           <div class="post-meta"><span>8 min read</span><span class="sep"></span><span>Updated</span></div>
         </div>
@@ -282,7 +168,6 @@ img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-
   </div>
 </section>
 
-<!-- ABOUT -->
 <section class="section section--soft" id="about">
   <div class="container">
     <div class="about-wrap">
@@ -317,60 +202,59 @@ img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-
   </div>
 </section>
 
-<!-- NEWSLETTER -->
 <section class="section section--tight" id="subscribe">
   <div class="container">
     <div class="newsletter reveal">
       <h2>Instagram changed something?<br>We'll tell you first.</h2>
       <p>Every time the platform tweaks its rules or launches a new feature, we send you a plain-English breakdown. No spam, unsubscribe anytime.</p>
       <form class="news-form" action="https://formspree.io/f/mqpapnze" method="POST">
-  <input type="email" name="email" placeholder="Enter your email address" required>
-  <button type="submit" class="btn btn--primary">Subscribe free</button>
-</form>
+        <input type="email" name="email" placeholder="Enter your email address" required>
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+        <button type="submit" class="btn btn--primary">Subscribe free</button>
+      </form>
       <p class="news-note">We respect your privacy. We will never share your email.</p>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo"><span class="logo-mark">IG</span><span>IGZZK·Knowledge</span></a>
+        <a href="https://www.igzzk.com/" class="logo"><span class="logo-mark">IG</span><span>IGZZK·Knowledge</span></a>
         <p>Instagram official docs, translated into plain English. From zero to confident.</p>
       </div>
       <div class="footer-col">
         <h5>Knowledge Base</h5>
         <ul>
-          <li><a href="algorithm-decoded.html">Algorithm Decoded</a></li>
-          <li><a href="how-to-post.html">How to Post</a></li>
-          <li><a href="business-tools.html">Business Tools</a></li>
-          <li><a href="pitfalls.html">Pitfalls to Avoid</a></li>
+          <li><a href="https://www.igzzk.com/algorithm-decoded.html">Algorithm Decoded</a></li>
+          <li><a href="https://www.igzzk.com/how-to-post.html">How to Post</a></li>
+          <li><a href="https://www.igzzk.com/business-tools.html">Business Tools</a></li>
+          <li><a href="https://www.igzzk.com/pitfalls.html">Pitfalls to Avoid</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h5>Popular</h5>
         <ul>
-          <li><a href="article-algorithm-2026.html">2026 algorithm guide</a></li>
-          <li><a href="article-reels.html">Reels algorithm</a></li>
-          <li><a href="article-recovery.html">Account recovery</a></li>
-          <li><a href="article-features.html">2026 feature roundup</a></li>
+          <li><a href="https://www.igzzk.com/article-algorithm-2026.html">2026 algorithm guide</a></li>
+          <li><a href="https://www.igzzk.com/article-reels.html">Reels algorithm</a></li>
+          <li><a href="https://www.igzzk.com/article-recovery.html">Account recovery</a></li>
+          <li><a href="https://www.igzzk.com/article-features.html">2026 feature roundup</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h5>About</h5>
         <ul>
-          <li><a href="about.html">About us</a></li>
-          <li><a href="editorial.html">Editorial policy</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="privacy.html">Privacy policy</a></li>
+          <li><a href="https://www.igzzk.com/about.html">About us</a></li>
+          <li><a href="https://www.igzzk.com/editorial.html">Editorial policy</a></li>
+          <li><a href="https://www.igzzk.com/contact.html">Contact</a></li>
+          <li><a href="https://www.igzzk.com/privacy.html">Privacy policy</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© 2026 IGZZK.com · All rights reserved</span>
-      <p class="disclaimer">This is an independent knowledge site. We are not affiliated with Meta Platforms, Inc. or Instagram. "Instagram" is a trademark of Meta Platforms, Inc.</p>
+      <p class="disclaimer">Not affiliated with Meta Platforms, Inc. or Instagram. "Instagram" is a trademark of Meta Platforms, Inc.</p>
     </div>
   </div>
 </footer>
@@ -379,6 +263,5 @@ img{max-width:100%;display:block;}a{color:inherit;text-decoration:none;}ul{list-
 (function(){var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');if(!t||!l)return;t.addEventListener('click',function(){l.classList.toggle('open');});l.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){l.classList.remove('open');});});})();
 (function(){var items=document.querySelectorAll('.reveal');if(!items.length)return;if(!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('is-visible');});return;}var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -60px 0px'});items.forEach(function(el,i){el.style.transitionDelay=(i%4)*70+'ms';io.observe(el);});})();
 </script>
-
 </body>
 </html>
