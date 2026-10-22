@@ -44,7 +44,7 @@
   </url>
   <url>
     <loc>https://igzzk.com/article-reels.html</loc>
-    <lastmod>2026-10-10</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -174,4 +174,10 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url>
+  <loc>https://igzzk.com/article-reels-algorithm.html</loc>
+  <lastmod>2026-10-22</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
 </urlset>
