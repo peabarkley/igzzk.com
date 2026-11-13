@@ -1,0 +1,20 @@
+{
+  "id": "/",
+  "name": "IGZZK",
+  "short_name": "IGZZK",
+  "description": "Instagram help in plain English.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
